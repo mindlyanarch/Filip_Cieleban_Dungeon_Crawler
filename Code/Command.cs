@@ -11,9 +11,5 @@ namespace DungeonExplorer
     {
     }
 
-    public string PlayerChoice()
-    {
-        string choice = Console.ReadLine("");
-
-    }
+   
 }

@@ -23,12 +23,12 @@ namespace DungeonExplorer
 
         }
 
-     private List<DataController> CheckFiles() 
-        {
+     //private List<DataController> CheckFiles() 
+        //{
             //This file should pass a list of objects related to files
             // - Savedata object
             // - Config object
          
-        }
+       // }
     }
 }

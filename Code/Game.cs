@@ -48,7 +48,7 @@ namespace DungeonExplorer
             player = new(input, 100, entranceRoom);
 
             //Enemies
-            entranceRoom.Enemies.Add(rat = new(entranceRoom));
+            //entranceRoom.Enemies.Add(rat = new(entranceRoom));
 
             Map = new();
             Map.Add(entranceRoom);
