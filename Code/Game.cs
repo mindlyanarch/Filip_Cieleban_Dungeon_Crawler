@@ -81,11 +81,11 @@ namespace DungeonExplorer
                     case "exit": { playing = false; break; }
                     case "debug": { testing.DebugMenu(this); break; }
                     default:
-                    {
-                        Console.Write("That doesn't seem to be a ");
-                        Console.WriteLine("valid command, try again:");
-                        continue;
-                    }
+                        {
+                            Console.Write("That doesn't seem to be a ");
+                            Console.WriteLine("valid command, try again:");
+                            continue;
+                        }
 
                 }
 
@@ -104,7 +104,7 @@ namespace DungeonExplorer
 
         public Player GetPlayer()
         {
-            return this.player;
+            return player;
         }
     }
 }
