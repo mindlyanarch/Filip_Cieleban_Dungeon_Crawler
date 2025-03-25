@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using DungeonExplorer;
 
+
 namespace DungeonExplorer
 {
 
@@ -17,30 +18,20 @@ namespace DungeonExplorer
 
     internal class Program
     {
-        [DllImport("kernel32.dll", ExactSpelling = true)]
 
-        private static extern IntPtr GetConsoleWindow();
-        private static IntPtr ThisConsole = GetConsoleWindow();
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-
-        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-        private const int HIDE = 0;
-        private const int MAXIMIZE = 3;
-        private const int MINIMIZE = 6;
-        private const int RESTORE = 9;
+        
 
         static void Main(string[] args)
         {
 
-            ShowWindow(ThisConsole, MAXIMIZE);
-
             //Initialize Core Functions:
+
+            Display display = new(); 
+            display.Init();
 
             Game game = new();
             DataController controller = new();
             
-
             //Main Menu
             Console.WriteLine("Welcome to Dungeon Crawler!");
             Console.WriteLine("Pick an option:\n");
@@ -57,8 +48,6 @@ namespace DungeonExplorer
                 case "a": { Program.Start(game); break;}
                 case "q": { Program.Quit(); break; }
             }
-
-
 
         }
 

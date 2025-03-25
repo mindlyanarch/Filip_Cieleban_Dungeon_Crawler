@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DungeonExplorer.Code.Map;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Diagnostics;
@@ -16,18 +17,13 @@ namespace DungeonExplorer
         //player
         private Player player;
 
-        //Rooms
-        private EntranceRoom entranceRoom;
-        private EmptyRoom room1;
-
+        private GameMap gameMap;
+        private List<string> info;
         //Enemies
         private Creatures.Rat rat;
 
-        //Map
-        public List<Room> Map;
-
         public Testing testing;
-
+        public Command command;
 
         public Game()
         {
@@ -35,26 +31,29 @@ namespace DungeonExplorer
 
 
             //Rooms
-            entranceRoom = new();
-            room1 = new();
 
-
+            command = new();
             //Player
             Console.WriteLine("What is your name?");
             string input = Console.ReadLine();
 
+            gameMap = new();
 
-
-            player = new(input, 100, entranceRoom);
+            player = new(input, 100, gameMap.entranceRoom);
 
             //Enemies
             //entranceRoom.Enemies.Add(rat = new(entranceRoom));
 
-            Map = new();
-            Map.Add(entranceRoom);
-            Map.Add(room1);
+
 
             testing = new Testing();
+
+            info = new();
+
+            info.Add("It's cold in here");
+            info.Add(player.currentRoom.Name);
+            info.Add(player.currentRoom.Description);
+
         }
         public void Start()
         {
@@ -64,11 +63,12 @@ namespace DungeonExplorer
             {
                 //Player turn:
 
-                Console.WriteLine("It's cold in here...");
-
-                Console.WriteLine("Type 'look' to check where you are, or 'exit' to quit.");
-                Console.WriteLine("Type 'inventory' to check your bag, or 'Pickup' to grab an item");
-                Console.WriteLine("Type 'forward' or 'backward' to move");
+                for (int i = 0;  i < command.playing.Count - 1; i++)
+                {
+                    Console.WriteLine(string.Format("{0, -50} {1, 50}  ",
+                                                    info[i],
+                                                    command.playing[i]));
+                }
                 string input = Console.ReadLine()?.ToLower();
 
                 switch (input)
@@ -76,8 +76,8 @@ namespace DungeonExplorer
                     case "look": { player.Look(); break; }
                     case "inventory": { player.GetInventory(); break; }
                     case "pickup": { player.PickUpItem(); break; }
-                    case "forward": { player.Move_Forward(Map); break; }
-                    case "backward": { player.Move_Backward(Map); break; }
+                    case "forward": { player.Move_Forward(gameMap.Map); break; }
+                    case "backward": { player.Move_Backward(gameMap.Map); break; }
                     case "exit": { playing = false; break; }
                     case "debug": { testing.DebugMenu(this); break; }
                     default:
