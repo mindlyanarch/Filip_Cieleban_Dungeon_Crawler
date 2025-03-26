@@ -1,4 +1,5 @@
-﻿using DungeonExplorer.Code.Map;
+﻿using DungeonExplorer;
+using DungeonExplorer.Code.Map;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -15,7 +16,7 @@ namespace DungeonExplorer
         //Declare objects:
 
         //player
-        private Player player;
+        public Player player { get; private set; }
 
         private GameMap gameMap;
         private List<string> info;
@@ -24,22 +25,23 @@ namespace DungeonExplorer
 
         public Testing testing;
         public Command command;
-
+        DisplayController displayController;
         public Game()
         {
             // Initialize Objects:
 
+            //Display
+
+            displayController = new(this); //handles screen output
 
             //Rooms
 
             command = new();
-            //Player
-            Console.WriteLine("What is your name?");
-            string input = Console.ReadLine();
 
-            gameMap = new();
 
-            player = new(input, 100, gameMap.entranceRoom);
+            gameMap = new(); //handles location
+
+            
 
             //Enemies
             //entranceRoom.Enemies.Add(rat = new(entranceRoom));
@@ -48,22 +50,27 @@ namespace DungeonExplorer
 
             testing = new Testing(player);
 
-            info = new();
 
-            info.Add("It's cold in here");
-            info.Add(player.currentRoom.Name);
-            info.Add(player.currentRoom.Description);
 
         }
         public void Start()
         {
+            //Player
+            Console.WriteLine("What is your name?");
+            string input = Console.ReadLine();
+            player = new(input, 100, gameMap.entranceRoom);
+
+
             // Change the playing logic into true and populate the while loop
             bool playing = true;
             while (playing)
             {
                 //Player turn:
 
-                Display_Commands(command);
+                displayController.Update(this);
+                displayController.Display_Main(command);
+
+
                 ConsoleKeyInfo choice = Console.ReadKey();
                 Console.Clear();
 
@@ -104,17 +111,8 @@ namespace DungeonExplorer
             }
         }
 
-        public void Display_Commands(Command command)
-        {
-            byte max = Math.Max(Convert.ToByte(command.playing.Count), Convert.ToByte(this.info.Count));
 
-            for (int i = 0; i < max; i++)
-            {
-                string column1 = (i < info.Count) ? info[i] : "";
-                string column2 = (i < command.playing.Count) ? command.playing[i] : "";
-
-                Console.WriteLine("{0, -100}, {1} ", column1, column2);
-            }
-        }
+        
     }
 }
+

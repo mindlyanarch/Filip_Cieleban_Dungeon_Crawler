@@ -13,6 +13,8 @@ namespace DungeonExplorer
          
             private List<GameItems> Inventory = new List<GameItems>();
 
+            public Torch EquippedTorch { get; set; }
+            public Sword EquippedSword { get; set; }
         public Player(string name, int health, Room location) : base(location)
             {
                 currentRoom = location;
@@ -22,8 +24,7 @@ namespace DungeonExplorer
                 MAXHP = health;
                 HP = health;
 
-                Torch EquippedTorch ;
-                Sword EquippedSword ;
+
 
                 Debug.Assert(Name != null);
                 Debug.Assert(HP != 0 && MAXHP != 0);

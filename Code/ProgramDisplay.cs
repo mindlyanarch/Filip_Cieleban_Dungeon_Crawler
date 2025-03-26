@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-    internal class Display
+    internal class ProgramDisplay
 
     {
 

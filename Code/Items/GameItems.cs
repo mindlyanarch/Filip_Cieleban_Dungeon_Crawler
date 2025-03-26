@@ -18,35 +18,7 @@ namespace DungeonExplorer
         }
     }
 
-    public class Sword : GameItems
-    {
-        private int Damage { get; set; }
-        public int damage { get { return Damage; } }
-
-        public bool Equippable = true;
-
-        public Sword(string name, string description, int damage)
-        {
-            Name = name;
-            Description = description;
 
 
-            Damage = damage;
 
-        }
-    }
-
-    public class Torch : GameItems
-    {
-        /* Types of darkness:
-         * dungeon dark: shows nothing
-         * 
-         * carnacht: display enemy HP
-         * terpsifulgin: displays loot on ground
-         * nefarshade: obscures distances.
-         */
-        public Torch()
-        {
-        }
-    }
 }
