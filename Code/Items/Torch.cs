@@ -12,8 +12,12 @@ namespace DungeonExplorer
         {
         }
 
-        public List<string> SetLight(Player player)
-        { return null; }
+        virtual public List<string> SetLight(Player player)
+        {
+            List<string> light = new();
+
+            light.Add("It's cold in here...");
+            return light; }
     }
 
 
@@ -26,7 +30,7 @@ namespace DungeonExplorer
             Name = "Torch";
             Description = "An otherwise unremarkable torch. It lets you see your obvious surroundings";
         }
-        public List<string> SetLight(Player player)
+        public override List<string> SetLight(Player player)
         {
             List<string> light = new();
 
@@ -46,7 +50,7 @@ namespace DungeonExplorer
             Name = "Torch of Carnacht";
             Description = "The blood red light of Carnacht exposes weakness.";
         }
-        public List<string> SetLight(Player player)
+        public override List<string> SetLight(Player player)
         {
             List<string> light = new();
 
@@ -68,7 +72,7 @@ namespace DungeonExplorer
             Description = "Things glint in the shadows of the clean blue light of Stipple.";
 
         }
-        public List<string> SetLight(Player player)
+        public override List<string> SetLight(Player player)
         {
             List<string> light = new();
 

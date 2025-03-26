@@ -9,11 +9,11 @@ namespace DungeonExplorer
         public int ID { get; protected set; }
         public string Description { get; protected set; }
         public string Name { get; protected set; }
-        internal List<Creatures> Enemies { get => enemies; set => enemies = value; }
+        internal List<Creature> Enemies { get => enemies; set => enemies = value; }
         
 
         public List<GameItems> Inventory = new();
-        private List<Creatures> enemies = new();
+        private List<Creature> enemies = new();
 
         public Room()
         {

@@ -23,8 +23,10 @@ namespace DungeonExplorer
                 Description = "You've seen better days.";
                 MAXHP = health;
                 HP = health;
+                 DefaultTorch torch = new();
 
-
+                 EquippedTorch = torch;
+                
 
                 Debug.Assert(Name != null);
                 Debug.Assert(HP != 0 && MAXHP != 0);

@@ -4,6 +4,7 @@ using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,17 +26,25 @@ namespace DungeonExplorer
 
         {
             gameObject = game;
+            info = new();
 
-            List<string> info = game.player.EquippedTorch.SetLight(game.player);
         }
 
         public List<string> Update(Game game)
         {
+            
+            if (!(game.player.EquippedTorch == null))
+            {
+                this.info = game.player.EquippedTorch.SetLight(game.player);
 
-            List<string> info = game.player.EquippedTorch.SetLight(game.player);
-
-            return info;
-
+                return info;
+            }
+            else 
+            {
+                this.info = new();
+                info.Add("It's cold in here...");
+                return info;
+            }
         }
         
         public void Display_Main(Command command)

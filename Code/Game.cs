@@ -40,8 +40,8 @@ namespace DungeonExplorer
 
 
             gameMap = new(); //handles location
+            player = new("hero", 100, gameMap.entranceRoom);
 
-            
 
             //Enemies
             //entranceRoom.Enemies.Add(rat = new(entranceRoom));
@@ -58,7 +58,7 @@ namespace DungeonExplorer
             //Player
             Console.WriteLine("What is your name?");
             string input = Console.ReadLine();
-            player = new(input, 100, gameMap.entranceRoom);
+
 
 
             // Change the playing logic into true and populate the while loop
