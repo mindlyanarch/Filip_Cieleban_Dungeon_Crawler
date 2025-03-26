@@ -23,7 +23,8 @@ namespace DungeonExplorer
             playing.Add("d. Right");
             playing.Add("l. Look");
             playing.Add("i. Inventory");
-            
+            playing.Add("q. Quit");
+            playing.Add("p. Pick Up.");
         }
     }
 

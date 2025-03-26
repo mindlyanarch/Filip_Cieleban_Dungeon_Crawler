@@ -22,6 +22,8 @@ namespace DungeonExplorer
                 MAXHP = health;
                 HP = health;
 
+                Torch EquippedTorch ;
+                Sword EquippedSword ;
 
                 Debug.Assert(Name != null);
                 Debug.Assert(HP != 0 && MAXHP != 0);
@@ -135,7 +137,7 @@ namespace DungeonExplorer
         /// </summary>
         /// <param name="Map"></param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void Move_Backward(List<Room> Map)
+        public void Move(string direction, List<Room> Map)
         {
             int Index = currentRoom.GetID();
 

@@ -46,7 +46,7 @@ namespace DungeonExplorer
 
 
 
-            testing = new Testing();
+            testing = new Testing(player);
 
             info = new();
 
@@ -63,23 +63,25 @@ namespace DungeonExplorer
             {
                 //Player turn:
 
-                for (int i = 0;  i < command.playing.Count - 1; i++)
-                {
-                    Console.WriteLine(string.Format("{0, -50} {1, 50}  ",
-                                                    info[i],
-                                                    command.playing[i]));
-                }
-                string input = Console.ReadLine()?.ToLower();
+                Display_Commands(command);
+                ConsoleKeyInfo choice = Console.ReadKey();
+                Console.Clear();
 
-                switch (input)
+                switch (choice.KeyChar.ToString())
                 {
-                    case "look": { player.Look(); break; }
-                    case "inventory": { player.GetInventory(); break; }
-                    case "pickup": { player.PickUpItem(); break; }
-                    case "forward": { player.Move_Forward(gameMap.Map); break; }
-                    case "backward": { player.Move_Backward(gameMap.Map); break; }
-                    case "exit": { playing = false; break; }
-                    case "debug": { testing.DebugMenu(this); break; }
+
+                    case "l": { player.Look(); break; }
+                    case "i": { player.GetInventory(); break; }
+                    case "p": { player.PickUpItem(); break; }
+
+                    case "w": { player.Move("North", gameMap.Map); break; }
+                    case "a": { player.Move("West", gameMap.Map); break; }
+                    case "s": { player.Move("South", gameMap.Map); break; }
+                    case "d": { player.Move("East", gameMap.Map); break; }
+
+                    case "q": { playing = false; break; }
+                    case "m": { testing.DebugMenu(this, player); break; }
+
                     default:
                         {
                             Console.Write("That doesn't seem to be a ");
@@ -102,9 +104,17 @@ namespace DungeonExplorer
             }
         }
 
-        public Player GetPlayer()
+        public void Display_Commands(Command command)
         {
-            return player;
+            byte max = Math.Max(Convert.ToByte(command.playing.Count), Convert.ToByte(this.info.Count));
+
+            for (int i = 0; i < max; i++)
+            {
+                string column1 = (i < info.Count) ? info[i] : "";
+                string column2 = (i < command.playing.Count) ? command.playing[i] : "";
+
+                Console.WriteLine("{0, -100}, {1} ", column1, column2);
+            }
         }
     }
 }

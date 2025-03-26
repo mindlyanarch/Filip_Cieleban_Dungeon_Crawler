@@ -9,12 +9,17 @@ using System.Threading.Tasks;
 namespace DungeonExplorer
 {
     internal class Testing
+
+
     {
+
+        public Testing(Player player) 
+        { Player playerTarget = player; }
         /// <summary>
         /// Calls debug menu options
         /// </summary>
         /// <param name="game"></param>
-        public void DebugMenu(Game game)
+        public void DebugMenu(Game game, Player playerTarget)
         {
 
             Console.WriteLine("1. Spawn Item");
@@ -24,7 +29,7 @@ namespace DungeonExplorer
             {
                 case "1":
                     {
-                        SpawnItem(game); 
+                        SpawnItem(game, playerTarget); 
                             break; }
 
                 default:
@@ -36,7 +41,7 @@ namespace DungeonExplorer
         /// Spawns an item
         /// </summary>
         /// <param name="game"></param>
-        private void SpawnItem(Game game)
+        private void SpawnItem(Game game, Player playerTarget)
         {
             Console.WriteLine("Which item?");
             Console.WriteLine("1.Rusty Sword");
@@ -48,7 +53,7 @@ namespace DungeonExplorer
                 case "1":
                     {
                         Sword rustySword = new Sword("Rusty Sword", "This has been here a long time...", 5);
-                        Player playerTarget = game.GetPlayer();
+
                         Room destination = playerTarget.GetRoom();
 
                         destination.Inventory.Add(rustySword);

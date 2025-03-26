@@ -35,4 +35,18 @@ namespace DungeonExplorer
 
         }
     }
+
+    public class Torch : GameItems
+    {
+        /* Types of darkness:
+         * dungeon dark: shows nothing
+         * 
+         * carnacht: display enemy HP
+         * terpsifulgin: displays loot on ground
+         * nefarshade: obscures distances.
+         */
+        public Torch()
+        {
+        }
+    }
 }
