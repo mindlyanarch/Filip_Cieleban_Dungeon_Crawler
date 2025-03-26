@@ -26,47 +26,17 @@ namespace DungeonExplorer
         {
             gameObject = game;
 
-            List<string> info = SetTorchLevel();
+            List<string> info = game.player.EquippedTorch.SetLight(game.player);
         }
 
         public List<string> Update(Game game)
         {
 
-            List<string> info = SetTorchLevel();
+            List<string> info = game.player.EquippedTorch.SetLight(game.player);
 
             return info;
 
         }
-
-        public List<string> SetTorchLevel()
-        {
-            /*Torch level 0 should display nothing
-            * level 1 should display room name and description, and enemies
-            * level 2 should display items
-            * level 3 should display enemies hp
-            * level 4 should display nothing
-            */
-            int TorchLevel = gameObject.player.EquippedTorch.SetLight(gameObject.player);
-
-            info = new();
-
-            switch (torchLevel)
-            {
-                case 0: { info.Add("It's cold in here..."); break; }
-                case 1: {
-                        info.Add("The warmth from the torch is cozy.");
-                        info.Add(gameObject.player.currentRoom.Name);
-                        info.Add(gameObject.player.currentRoom.Description);
-                        break; 
-                        }
-                case 2: {
-                        info.Add("The ")
-
-            }
-
-            return info;
-        }
-
         
         public void Display_Main(Command command)
         {

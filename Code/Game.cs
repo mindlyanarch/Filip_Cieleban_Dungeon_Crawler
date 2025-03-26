@@ -21,7 +21,7 @@ namespace DungeonExplorer
         private GameMap gameMap;
         private List<string> info;
         //Enemies
-        private Creatures.Rat rat;
+        private Rat rat;
 
         public Testing testing;
         public Command command;

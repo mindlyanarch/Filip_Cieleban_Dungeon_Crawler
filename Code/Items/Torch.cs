@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-    public abstract class Torch : GameItems
+    public abstract class Torch : GameItems, ISetsLight
     {
         public Torch()
         {
         }
 
+        public List<string> SetLight(Player player)
+        { return null; }
     }
 
 
-    public class DefaultTorch : Torch, ISetsLight
+    public class DefaultTorch : Torch
     {
         public DefaultTorch()
 
@@ -35,12 +37,12 @@ namespace DungeonExplorer
             return light;
         }
     }
-    public class EnemyTorch : Torch, ISetsLight
+    public class EnemyTorch : Torch
     {
         public EnemyTorch()
 
         {
-            TorchLevel = 2;
+
             Name = "Torch of Carnacht";
             Description = "The blood red light of Carnacht exposes weakness.";
         }
@@ -56,12 +58,12 @@ namespace DungeonExplorer
 
         }
     }
-    public class ItemTorch : Torch, ISetsLight
+    public class ItemTorch : Torch
     {
         public ItemTorch()
 
         {
-            TorchLevel = 3;
+
             Name = "Torch of Stipple";
             Description = "Things glint in the shadows of the clean blue light of Stipple.";
 
@@ -77,12 +79,12 @@ namespace DungeonExplorer
             return light;
         }
     }
-    public class PuzzleTorch : Torch, ISetsLight
+    public class PuzzleTorch : Torch
     {
         public PuzzleTorch()
 
         {
-            TorchLevel = 4;
+
             Name = "Torch of Aphelionbral";
             Description = "In the golden yellow light of Aphelionbral, close things, aren't. Far things, aren't.";
         }
