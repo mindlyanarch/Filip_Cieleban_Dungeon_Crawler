@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-    internal class Creatures
-    {
+
         public abstract class Creature : IDamageable
         {
             public int MAXHP { get; protected set; }
@@ -72,5 +71,5 @@ namespace DungeonExplorer
                 Console.WriteLine("The rat chitters away idly.");
             }
         }
-    }
+
 }

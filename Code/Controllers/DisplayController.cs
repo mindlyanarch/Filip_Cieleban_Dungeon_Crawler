@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.CompilerServices;
@@ -15,6 +16,8 @@ namespace DungeonExplorer
 
         public int torchLevel { get; private set; }
 
+
+
         private Game gameObject { get; set; }
 
 
@@ -23,27 +26,48 @@ namespace DungeonExplorer
         {
             gameObject = game;
 
-            info = new();
-            info.Add(SetTorchLevel());
-            info.Add(game.player.currentRoom.Description);
-            info.Add(game.player.currentRoom.Description);
+            List<string> info = SetTorchLevel();
         }
 
         public List<string> Update(Game game)
         {
-            int TorchLevel = gameObject.player.EquippedTorch.TorchLevel;
 
-
-            info[0] = SetTorchLevel();
-            info[1] = game.player.currentRoom.Description;
-            info[2] = game.player.currentRoom.Description;
+            List<string> info = SetTorchLevel();
 
             return info;
 
         }
 
+        public List<string> SetTorchLevel()
+        {
+            /*Torch level 0 should display nothing
+            * level 1 should display room name and description, and enemies
+            * level 2 should display items
+            * level 3 should display enemies hp
+            * level 4 should display nothing
+            */
+            int TorchLevel = gameObject.player.EquippedTorch.SetLight(gameObject.player);
 
+            info = new();
+
+            switch (torchLevel)
+            {
+                case 0: { info.Add("It's cold in here..."); break; }
+                case 1: {
+                        info.Add("The warmth from the torch is cozy.");
+                        info.Add(gameObject.player.currentRoom.Name);
+                        info.Add(gameObject.player.currentRoom.Description);
+                        break; 
+                        }
+                case 2: {
+                        info.Add("The ")
+
+            }
+
+            return info;
         }
+
+        
         public void Display_Main(Command command)
         {
             byte max = Math.Max(Convert.ToByte(command.playing.Count), Convert.ToByte(this.info.Count));

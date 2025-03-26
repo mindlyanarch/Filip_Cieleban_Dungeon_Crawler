@@ -8,18 +8,6 @@ namespace DungeonExplorer
 {
     public abstract class Torch : GameItems
     {
-        /* Types of darkness:
-         * dungeon dark: shows nothing
-         * 
-         * carnacht: display enemy HP
-         * terpsifulgin: displays loot on ground
-         * nefarshade: obscures distances.
-         */
-
-
-        public int TorchLevel {  get; protected set; }
-
-
         public Torch()
         {
         }
@@ -27,46 +15,88 @@ namespace DungeonExplorer
     }
 
 
-    public class DefaultTorch : Torch
+    public class DefaultTorch : Torch, ISetsLight
     {
         public DefaultTorch()
 
         {
-            TorchLevel = 1;
+
             Name = "Torch";
             Description = "An otherwise unremarkable torch. It lets you see your obvious surroundings";
         }
-    }
+        public List<string> SetLight(Player player)
+        {
+            List<string> light = new();
 
-    public class EnemyTorch : Torch
+            light.Add("The warmth from the torch is cozy.");
+            light.Add(player.currentRoom.Name);
+            light.Add(player.currentRoom.Description);
+
+            return light;
+        }
+    }
+    public class EnemyTorch : Torch, ISetsLight
     {
         public EnemyTorch()
 
         {
             TorchLevel = 2;
             Name = "Torch of Carnacht";
-            Description = "The blood-red light of Carnacht exposes weakness.";
+            Description = "The blood red light of Carnacht exposes weakness.";
+        }
+        public List<string> SetLight(Player player)
+        {
+            List<string> light = new();
+
+            light.Add("You can barely stand the heat from your torch.");
+            light.Add(player.currentRoom.Name);
+            light.Add(player.currentRoom.Description);
+            light.Add("Monster health should have gone here");
+            return light;
+
         }
     }
-
-    public class ItemTorch : Torch
+    public class ItemTorch : Torch, ISetsLight
     {
         public ItemTorch()
 
         {
             TorchLevel = 3;
             Name = "Torch of Stipple";
-            Description = "Things glint in the shadows of the clean-blue light of Stipple.";
+            Description = "Things glint in the shadows of the clean blue light of Stipple.";
+
+        }
+        public List<string> SetLight(Player player)
+        {
+            List<string> light = new();
+
+            light.Add("The flame of the torch radiates no heat.");
+            light.Add(player.currentRoom.Name);
+            light.Add(player.currentRoom.Description);
+            light.Add("Monster health should have gone here");
+            return light;
         }
     }
-    public class PuzzleTorch : Torch
+    public class PuzzleTorch : Torch, ISetsLight
     {
         public PuzzleTorch()
 
         {
             TorchLevel = 4;
             Name = "Torch of Aphelionbral";
-            Description = "In the light of Aphelionbral, close things, aren't. Far things, aren't.";
+            Description = "In the golden yellow light of Aphelionbral, close things, aren't. Far things, aren't.";
         }
+        public List<string> SetLight(Player player)
+        {
+            List<string> light = new();
+
+            light.Add("You can barely tell where you're standing in the room.");
+            light.Add(player.currentRoom.Name);
+            light.Add(player.currentRoom.Description);
+
+            return light;
+        }
+
     }
+        
 }

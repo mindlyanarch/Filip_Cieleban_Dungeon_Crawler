@@ -8,7 +8,7 @@ using System.Reflection;
 namespace DungeonExplorer
 {
 
-        internal class Player : Creatures.Creature
+        public class Player : Creature
         {
          
             private List<GameItems> Inventory = new List<GameItems>();

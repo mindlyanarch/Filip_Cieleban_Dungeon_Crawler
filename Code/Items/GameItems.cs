@@ -18,6 +18,8 @@ namespace DungeonExplorer
         }
     }
 
+    interface ISetsLight
+    {  List<string> SetLight(Player player); }
 
 
 
