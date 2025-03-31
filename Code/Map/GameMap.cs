@@ -1,14 +1,22 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DungeonExplorer.Code.Map
+namespace DungeonExplorer
 {
     internal class GameMap
     {
+        public Dictionary<string, Room> Master { get; private set; }
+
+        public Dictionary<int, Dictionary<int, Room>> MasterFloorList { get; private set; }
+
+        private Random random = new();
+
+
         public List<List<Room>> MapLevel_0;
         public List<Room> Map;
         //Hard coded mandatory rooms
@@ -30,27 +38,17 @@ namespace DungeonExplorer.Code.Map
         EmptyRoom EmptyRoom6;
         EmptyRoom EmptyRoom7;
 
+        int Floors = 0;
         public GameMap()
         {
-            //Hard coded mandatory rooms
-            entranceRoom_0 = new(0);
-            entranceRoom_1 = new(1);
-            entranceRoom_2 = new(2);
 
-            exitRoom_0 = new(0);
-            exitRoom_1 = new(1);
-            exitRoom_2 = new(2);
+            Master = new();
+            MasterFloorList = new();
+
+            //Hard coded mandatory rooms
+
 
             //temp for testing
-
-            EmptyRoom1 = new();
-            EmptyRoom2 = new();
-            EmptyRoom3 = new();
-            EmptyRoom4 = new();
-            EmptyRoom5 = new();
-            EmptyRoom6 = new();
-            EmptyRoom7 = new();
-
 
 
             Room[,] MapLevel_1 = new Room[3, 3];
@@ -61,20 +59,20 @@ namespace DungeonExplorer.Code.Map
             List<Room> Row2 = new();
             List<Room> Row3 = new();
 
-                MapLevel_0.Add(Row1);
-                    Row1.Add(EmptyRoom1);
-                    Row1.Add(entranceRoom_0);
-                    Row1.Add(EmptyRoom2);
+            MapLevel_0.Add(Row1);
+            Row1.Add(EmptyRoom1);
+            Row1.Add(entranceRoom_0);
+            Row1.Add(EmptyRoom2);
 
-                    MapLevel_0.Add(Row2);
-                    Row1.Add(EmptyRoom3);
-                    Row1.Add(EmptyRoom4);
-                    Row1.Add(EmptyRoom5);
+            MapLevel_0.Add(Row2);
+            Row1.Add(EmptyRoom3);
+            Row1.Add(EmptyRoom4);
+            Row1.Add(EmptyRoom5);
 
-                    MapLevel_0.Add(Row3);
-                    Row1.Add(EmptyRoom6);
-                    Row1.Add(exitRoom_0);
-                    Row1.Add(EmptyRoom7);
+            MapLevel_0.Add(Row3);
+            Row1.Add(EmptyRoom6);
+            Row1.Add(exitRoom_0);
+            Row1.Add(EmptyRoom7);
 
         }
 
@@ -110,14 +108,45 @@ namespace DungeonExplorer.Code.Map
             Console.ReadKey();
         }
 
-        
+
+        public Dictionary<int, Room> CreateFloor(int size, int difficulty)
+        {
+            //generate x amount of rooms
+            //connect entrance and exit to a room
+            //populate rest
+
+              Dictionary<int, Room> newFloor = new();
+
+            //Generate an entrance and exit first
+            int ID = 0;
+
+            EntranceRoom entrance = new(Floors, ID);
+            newFloor.Add(ID, entrance); ID++;
+
+            ExitRoom exit = new(Floors, ID);
+            newFloor.Add(ID, exit); ID++;
+
+
+            //populate rest of floor
+            while (ID < size)
+            {
+                EmptyRoom room = new(Floors, ID);
+                newFloor.Add(ID, room); ID++;
+
+            }
+
+
+            MasterFloorList.Add(this.Floors, newFloor);
+            this.Floors++;
+
+            return newFloor;
+        }
 
 
     }
 
 
-
-    }
+}
 
 
 

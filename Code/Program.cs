@@ -27,7 +27,7 @@ namespace DungeonExplorer
             //Initialize Core Functions:
 
             ProgramDisplay display = new(); //handles screen size
-            display.Init();
+            display.Init(); 
 
             Game game = new(); //core gameplay object
             DataController controller = new(); // handles saves

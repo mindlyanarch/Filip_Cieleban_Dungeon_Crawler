@@ -8,21 +8,31 @@ using System.Reflection;
 namespace DungeonExplorer
 {
 
-        public class Player : Creature
-        {
-         
-            private List<GameItems> Inventory = new List<GameItems>();
+    public class Player : Creature
+    {
 
-            public Torch EquippedTorch { get; set; }
-            public Sword EquippedSword { get; set; }
-        public Player(string name, int health, Room location) : base(location)
+        private List<GameItems> Inventory = new List<GameItems>();
+
+        public Torch EquippedTorch { get; set; }
+        public Sword EquippedSword { get; set; }
+ 
+
+        public  Player()
+        {
+
+            MAXHP = 100;
+            HP = MAXHP;
+            DefaultTorch torch = new();
+            Description = "You've seen better days.";
+            EquippedTorch = torch;
+
+        }
+        public Player(Room location) : base(location)
             {
                 currentRoom = location;
 
-                Name = name;
-                Description = "You've seen better days.";
-                MAXHP = health;
-                HP = health;
+                MAXHP = 100;
+                HP = MAXHP;
                  DefaultTorch torch = new();
 
                  EquippedTorch = torch;

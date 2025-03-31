@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace DungeonExplorer
 {
    
         public abstract class Room
     {
-        public int ID { get; protected set; }
+        public int roomID { get; protected set; }
+        public int roomFloor {  get; protected set; }
         public string Description { get; protected set; }
         public string Name { get; protected set; }
         public List<Creature> Enemies { get; protected set; }
@@ -54,14 +56,15 @@ namespace DungeonExplorer
         /// 
         /// </summary>
         /// <returns></returns>
-        public int GetID() { return ID; }
+        public int GetID() { return roomID; }
     }
 
     public class EmptyRoom : Room
     {
-        public EmptyRoom()
+        public EmptyRoom(int Floor, int ID)
         {
-            ID = 1;
+            roomFloor = Floor;
+            roomID = ID;
             Name = "An empty Room";
             Description = "One of many, there doesn't seem to be anything notable here.";
 
@@ -71,24 +74,24 @@ namespace DungeonExplorer
     }
     public class EntranceRoom : Room
     {
-        public EntranceRoom(int level)
+        public EntranceRoom(int Floor, int ID)
         {
-            ID = 0;
+            roomID = ID;
+            roomFloor = Floor;
             Name = "Entrance Hall";
             Description = "Behind you lies a massive stone gate. There is no return.";
-            roomLevel = level;
             IsVisited = true; // this should always be true 
         }
     }
 
     public class ExitRoom : Room
     {
-        public ExitRoom(int level)
+        public ExitRoom(int Floor, int ID)
         {
-            ID = 0;
+            roomID = ID;
+            roomFloor = Floor;
             Name = "Entrance Hall";
             Description = "Behind you lies a massive stone gate. There is no return.";
-            roomLevel = level;
             IsVisited = true; //this should always be true
 
         }

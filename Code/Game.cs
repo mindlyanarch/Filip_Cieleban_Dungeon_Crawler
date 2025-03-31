@@ -1,9 +1,9 @@
 ﻿using DungeonExplorer;
-using DungeonExplorer.Code.Map;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Diagnostics;
+using System.Linq;
 using System.Media;
 using System.Numerics;
 using System.Text.RegularExpressions;
@@ -17,45 +17,49 @@ namespace DungeonExplorer
 
         //player
         public Player player { get; private set; }
-
         private GameMap gameMap;
-        private List<string> info;
         //Enemies
         private Rat rat;
 
         public Testing testing;
         public Command command;
-        DisplayController displayController;
-        EnemyController enemyController;
+
+        private DisplayController displayController;
+        private CreatureController enemyController;
+        private MapController mapController;
+
         public Game()
         {
             // Initialize Objects:
 
-            //Display
+            //controllers
 
-            displayController = new(this); //handles screen output
+            displayController = new(this); //handles screen output 
             enemyController = new();
-            //Rooms
+            mapController = new();
+
+            mapController.CreateFloor(9, 0);
+
 
             command = new();
+            testing = new Testing(player);
 
+            //Rooms
 
             gameMap = new(); //handles location
-            player = new("hero", 100, gameMap.entranceRoom_0);
 
 
-            //Enemies
-
-
-
-
-            testing = new Testing(player);
+            player = new();
 
 
 
         }
         public void Start()
         {
+
+            player.currentRoom = mapController.Map.MasterFloorList.First().Value.First().Value;
+
+
             //Player
             Console.WriteLine("What is your name?");
             string input = Console.ReadLine();

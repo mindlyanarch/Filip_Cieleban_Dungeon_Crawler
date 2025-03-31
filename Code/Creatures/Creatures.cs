@@ -19,20 +19,26 @@ namespace DungeonExplorer
             public string Description { get; protected set; }
 
 
-            public Room currentRoom { get; protected set; }
+            public Room currentRoom { get;  set; }
 
-            public Creature(Room location)
+            public Creature()
             {
                 Name = "Creature";
                 Description = "This shouldn't exist.";
-                this.currentRoom = location;
-            }
 
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <returns></returns>
-            public Room GetRoom() { return this.currentRoom; }
+            }
+        public Creature(Room location)
+        {
+            Name = "Creature";
+            Description = "This shouldn't exist.";
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Room GetRoom() { return this.currentRoom; }
 
             public void Attack()
             {
