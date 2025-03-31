@@ -26,6 +26,7 @@ namespace DungeonExplorer
         public Testing testing;
         public Command command;
         DisplayController displayController;
+        EnemyController enemyController;
         public Game()
         {
             // Initialize Objects:
@@ -33,18 +34,18 @@ namespace DungeonExplorer
             //Display
 
             displayController = new(this); //handles screen output
-
+            enemyController = new();
             //Rooms
 
             command = new();
 
 
             gameMap = new(); //handles location
-            player = new("hero", 100, gameMap.entranceRoom);
+            player = new("hero", 100, gameMap.entranceRoom_0);
 
 
             //Enemies
-            //entranceRoom.Enemies.Add(rat = new(entranceRoom));
+
 
 
 
@@ -81,13 +82,15 @@ namespace DungeonExplorer
                     case "i": { player.GetInventory(); break; }
                     case "p": { player.PickUpItem(); break; }
 
+                    case "m": { gameMap.DisplayMap(); break; }
+
                     case "w": { player.Move("North", gameMap.Map); break; }
                     case "a": { player.Move("West", gameMap.Map); break; }
                     case "s": { player.Move("South", gameMap.Map); break; }
                     case "d": { player.Move("East", gameMap.Map); break; }
 
                     case "q": { playing = false; break; }
-                    case "m": { testing.DebugMenu(this, player); break; }
+                    case "n": { testing.DebugMenu(this, player); break; }
 
                     default:
                         {
@@ -106,7 +109,8 @@ namespace DungeonExplorer
                 Console.Clear();
 
                 //Game processing:
-
+                enemyController.GetEnemies(player);
+                enemyController.EnemyTurn();
 
             }
         }

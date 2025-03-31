@@ -9,17 +9,22 @@ namespace DungeonExplorer
         public int ID { get; protected set; }
         public string Description { get; protected set; }
         public string Name { get; protected set; }
-        internal List<Creature> Enemies { get => enemies; set => enemies = value; }
+        public List<Creature> Enemies { get; protected set; }
+        public List<GameItems> Inventory { get; protected set; }
         
+        public int roomLevel { get; protected set; }
 
-        public List<GameItems> Inventory = new();
-        private List<Creature> enemies = new();
+        public bool IsVisited { get; protected set; }
+
 
         public Room()
         {
             Name = "The Void";
             Description = "You shouldn't be here.";
-
+            Inventory = new();
+            Enemies = new();
+             roomLevel = -1;
+            IsVisited = false;
         }
         /// <summary>
         /// reads out room inventory.
@@ -66,15 +71,27 @@ namespace DungeonExplorer
     }
     public class EntranceRoom : Room
     {
-        public EntranceRoom()
+        public EntranceRoom(int level)
         {
             ID = 0;
             Name = "Entrance Hall";
             Description = "Behind you lies a massive stone gate. There is no return.";
+            roomLevel = level;
+            IsVisited = true; // this should always be true 
+        }
+    }
+
+    public class ExitRoom : Room
+    {
+        public ExitRoom(int level)
+        {
+            ID = 0;
+            Name = "Entrance Hall";
+            Description = "Behind you lies a massive stone gate. There is no return.";
+            roomLevel = level;
+            IsVisited = true; //this should always be true
 
         }
-
-
     }
 
 }

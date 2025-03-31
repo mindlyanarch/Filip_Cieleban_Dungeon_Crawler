@@ -45,6 +45,26 @@ namespace DungeonExplorer
 
         }
 
+
+        public abstract class Enemy : Creature, IEnemyAI
+        {
+        bool Aggressive = false;
+
+        public Enemy(Room location) : base(location) 
+        {
+            currentRoom = location;
+        }
+
+        public virtual void Turn() { }
+
+    }
+
+        interface IEnemyAI
+
+        {
+        public void Turn();
+        
+        }
         interface IDamageable
         {
 
@@ -53,20 +73,20 @@ namespace DungeonExplorer
       
 
         }
-        internal class Rat : Creature
+        internal class Rat : Enemy, IEnemyAI
         {
             public Rat(Room location) : base(location) 
             {
                 Name = "Rat";
                 Description = "A mangy rat. It will not attack unless provoked";
-                MAXHP = 5;
-                HP = 5;
+                MAXHP = 10;
+                HP = MAXHP;
                 Damage = 5;
 
 
                 
             }
-            public void Turn()
+            public override void Turn()
             {
                 Console.WriteLine("The rat chitters away idly.");
             }
