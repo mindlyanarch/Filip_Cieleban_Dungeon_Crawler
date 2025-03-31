@@ -11,6 +11,9 @@ namespace DungeonExplorer
         public int roomFloor {  get; protected set; }
         public string Description { get; protected set; }
         public string Name { get; protected set; }
+
+        public Dictionary<int, Room> Connections { get; protected set; }
+        public int PossibleConnections { get; protected set; }
         public List<Creature> Enemies { get; protected set; }
         public List<GameItems> Inventory { get; protected set; }
         
@@ -59,19 +62,7 @@ namespace DungeonExplorer
         public int GetID() { return roomID; }
     }
 
-    public class EmptyRoom : Room
-    {
-        public EmptyRoom(int Floor, int ID)
-        {
-            roomFloor = Floor;
-            roomID = ID;
-            Name = "An empty Room";
-            Description = "One of many, there doesn't seem to be anything notable here.";
 
-        }
-
-
-    }
     public class EntranceRoom : Room
     {
         public EntranceRoom(int Floor, int ID)
@@ -81,6 +72,8 @@ namespace DungeonExplorer
             Name = "Entrance Hall";
             Description = "Behind you lies a massive stone gate. There is no return.";
             IsVisited = true; // this should always be true 
+            PossibleConnections = 1;
+            Connections = new();
         }
     }
 
@@ -93,8 +86,23 @@ namespace DungeonExplorer
             Name = "Entrance Hall";
             Description = "Behind you lies a massive stone gate. There is no return.";
             IsVisited = true; //this should always be true
-
+            PossibleConnections = 1;
+            Connections = new(); 
         }
+    }
+    public class EmptyRoom : Room
+    {
+        public EmptyRoom(int Floor, int ID)
+        {
+            roomFloor = Floor;
+            roomID = ID;
+            Name = "An empty Room";
+            Description = "One of many, there doesn't seem to be anything notable here.";
+            PossibleConnections = 4;
+            Connections = new();
+        }
+
+
     }
 
 }

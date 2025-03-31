@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -134,11 +135,33 @@ namespace DungeonExplorer
                 newFloor.Add(ID, room); ID++;
 
             }
+            Random random = new();
+
+            //Generate a 'corridor' so that entrance and exit are always linked
+
+            Room start = newFloor("0");
 
 
-            MasterFloorList.Add(this.Floors, newFloor);
-            this.Floors++;
+            int Corridor = (size + 2) / 2;
 
+            for (int i = 0; i < Corridor; i++;)
+            {
+
+            }
+
+
+            foreach (Room room in newFloor.Values)
+
+            {
+                for (int i = 0; i < room.PossibleConnections; i++)
+                {
+                    Room nextRoom = newFloor[(random.Next(newFloor.Count))];
+                    room.Connections.Add(i, nextRoom);
+                }
+
+                MasterFloorList.Add(this.Floors, newFloor);
+                this.Floors++;
+            }
             return newFloor;
         }
 
