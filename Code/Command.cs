@@ -22,7 +22,7 @@ namespace DungeonExplorer
             playing.Add("s. Back");
             playing.Add("d. Right");
             playing.Add("l. Look");
-            playing.Add("i. Inventory");
+            playing.Add("i. Status");
             playing.Add("q. Quit");
             playing.Add("p. Pick Up.");
         }
