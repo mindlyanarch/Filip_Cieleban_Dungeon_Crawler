@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DungeonExplorer
@@ -124,45 +125,149 @@ namespace DungeonExplorer
             EntranceRoom entrance = new(Floors, ID);
             newFloor.Add(ID, entrance); ID++;
 
-            ExitRoom exit = new(Floors, ID);
-            newFloor.Add(ID, exit); ID++;
 
 
             //populate rest of floor
-            while (ID < size)
+            while (ID < size - 1)
             {
                 EmptyRoom room = new(Floors, ID);
                 newFloor.Add(ID, room); ID++;
 
             }
+
+            ExitRoom exit = new(Floors, ID);
+            newFloor.Add(ID, exit); ID++;
+
             Random random = new();
+
 
             //Generate a 'corridor' so that entrance and exit are always linked
 
-            Room start = newFloor("0");
+            List<Room> roomList = new();
 
+            int idNext = 1;
 
-            int Corridor = (size + 2) / 2;
-
-            for (int i = 0; i < Corridor; i++;)
+            for (int i = 0; i < newFloor.Count - 1; i++)
             {
+                Room room = newFloor[i];
 
+                int dir = random.Next(room.PossibleConnections);
+
+                bool loop = true;
+                while (loop)
+                {
+                    if (room.Connections.Count == 0 | room.Connections.Count == room.PossibleConnections)
+                    { break; }
+                    foreach (int value in room.Connections.Keys)
+                    {
+
+                         if (dir == value)
+                        {
+                            dir = random.Next(room.PossibleConnections);
+                        }
+                        else
+                        {
+                            loop = false;
+                            break;
+                        }
+                    }
+                }
+
+                room.Connections.Add(dir, newFloor[idNext]);
+
+                dir = random.Next(newFloor[idNext].PossibleConnections);
+
+                loop = true;
+                while (loop)
+                {
+
+                    if (newFloor[idNext].Connections.Count == 0 | newFloor[idNext].Connections.Count == room.PossibleConnections)
+                    { break; }
+                    foreach (int value in room.Connections.Keys)
+                    {
+
+                        if (dir == value)
+                        {
+                            dir = random.Next(newFloor[idNext].PossibleConnections);
+                        }
+                        else
+                        {
+                            loop = false;
+                            break;
+                        }
+                    }
+                }
+
+                //Iterate through each room until all connections are done
+
+                bool finished = false;
+
+                while (!finished)
+
+                {
+                    dir = random.Next(room.PossibleConnections);
+
+                    foreach (Room rooms in newFloor.Values)
+                    {
+                        loop = true;
+                        while (loop)
+                        {
+                            if (room.Connections.Count == 0 || room.Connections.Count == room.PossibleConnections)
+                            { break; }
+                            foreach (int value in room.Connections.Keys)
+                            {
+
+                                if (dir == value)
+                                {
+                                    dir = random.Next(room.PossibleConnections);
+                                }
+                                else
+                                {
+                                    loop = false;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (!(room.Connections.Count == room.PossibleConnections))
+                        { room.Connections.Add(dir, newFloor[idNext]); }
+
+                        dir = random.Next(newFloor[idNext].PossibleConnections);
+
+                        loop = true;
+                        while (loop)
+                        {
+                            if (newFloor[idNext].Connections.Count == 0 | newFloor[idNext].Connections.Count == room.PossibleConnections)
+                            { break; }
+                            foreach (int value in room.Connections.Keys)
+                            {
+                                if (dir == value)
+                                {
+                                    dir = random.Next(newFloor[idNext].PossibleConnections);
+                                }
+                                else
+                                {
+                                    loop = false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (!(room.Connections.Count == room.PossibleConnections))
+                { newFloor[idNext].Connections.Add(dir, room); }
+                idNext++;
             }
 
 
-            foreach (Room room in newFloor.Values)
+            
 
-            {
-                for (int i = 0; i < room.PossibleConnections; i++)
-                {
-                    Room nextRoom = newFloor[(random.Next(newFloor.Count))];
-                    room.Connections.Add(i, nextRoom);
-                }
+
 
                 MasterFloorList.Add(this.Floors, newFloor);
                 this.Floors++;
-            }
-            return newFloor;
+                return newFloor;
         }
 
 

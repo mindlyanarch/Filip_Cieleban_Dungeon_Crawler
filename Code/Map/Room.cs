@@ -30,6 +30,7 @@ namespace DungeonExplorer
             Enemies = new();
              roomLevel = -1;
             IsVisited = false;
+            Connections = new();
         }
         /// <summary>
         /// reads out room inventory.
@@ -73,7 +74,7 @@ namespace DungeonExplorer
             Description = "Behind you lies a massive stone gate. There is no return.";
             IsVisited = true; // this should always be true 
             PossibleConnections = 1;
-            Connections = new();
+
         }
     }
 
@@ -87,7 +88,7 @@ namespace DungeonExplorer
             Description = "Behind you lies a massive stone gate. There is no return.";
             IsVisited = true; //this should always be true
             PossibleConnections = 1;
-            Connections = new(); 
+  
         }
     }
     public class EmptyRoom : Room
@@ -99,7 +100,7 @@ namespace DungeonExplorer
             Name = "An empty Room";
             Description = "One of many, there doesn't seem to be anything notable here.";
             PossibleConnections = 4;
-            Connections = new();
+
         }
 
 
