@@ -15,18 +15,30 @@ namespace DungeonExplorer
 
         public GameMap Map {get; private set;}
 
-        public MapController() { Map = new(); }
+        public int CurrentLevel {get; private set;}
+
+        public Dictionary<int, Room> CurrentFloor { get; private set;} 
+
+        public MapController()
+        {
+            Map = new();
+
+            CurrentLevel = 0;
+
+            CurrentFloor = new(CreateFloor(9,0));
+
+        }
 
 
 
 
 
-        public void CreateFloor(int size, int difficulty)
+        public Dictionary<int, Room> CreateFloor(int size, int difficulty)
 
         {
-            this.Map.CreateFloor(size, difficulty);
+            Dictionary<int, Room> newFloor = this.Map.CreateFloor(size, difficulty);
 
-
+            return newFloor;
         }
 
 

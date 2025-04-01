@@ -46,9 +46,6 @@ namespace DungeonExplorer
 
             //Rooms
 
-            gameMap = new(); //handles location
-
-
             player = new();
 
 
@@ -57,7 +54,7 @@ namespace DungeonExplorer
         public void Start()
         {
 
-            player.currentRoom = mapController.Map.MasterFloorList.First().Value.First().Value;
+            player.currentRoom = mapController.CurrentFloor[0];
 
 
             //Player
@@ -86,12 +83,12 @@ namespace DungeonExplorer
                     case "i": { player.GetInventory(); break; }
                     case "p": { player.PickUpItem(); break; }
 
-                    case "m": { gameMap.DisplayMap(); break; }
+  
 
-                    case "w": { player.Move("North", gameMap.Map); break; }
-                    case "a": { player.Move("West", gameMap.Map); break; }
-                    case "s": { player.Move("South", gameMap.Map); break; }
-                    case "d": { player.Move("East", gameMap.Map); break; }
+                    case "w": { player.Move(0); break; }
+                    case "a": { player.Move(1); break; }
+                    case "s": { player.Move(2); break; }
+                    case "d": { player.Move(3); break; }
 
                     case "q": { playing = false; break; }
                     case "n": { testing.DebugMenu(this, player); break; }

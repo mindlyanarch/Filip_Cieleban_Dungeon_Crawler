@@ -15,7 +15,8 @@ namespace DungeonExplorer
 
         public Torch EquippedTorch { get; set; }
         public Sword EquippedSword { get; set; }
- 
+
+        private Dictionary<string, int> Cardinality { get; set; }
 
         public  Player()
         {
@@ -36,9 +37,15 @@ namespace DungeonExplorer
                  DefaultTorch torch = new();
 
                  EquippedTorch = torch;
-                
 
-                Debug.Assert(Name != null);
+
+            Cardinality = new();
+            this.Cardinality.Add("North", 0);
+            this.Cardinality.Add("East", 1);
+            this.Cardinality.Add("South", 2);
+            this.Cardinality.Add("West", 3);
+
+            Debug.Assert(Name != null);
                 Debug.Assert(HP != 0 && MAXHP != 0);
                 Debug.Assert(currentRoom != null);
         }
@@ -150,14 +157,15 @@ namespace DungeonExplorer
         /// </summary>
         /// <param name="Map"></param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void Move(string direction, List<Room> Map)
+        public void Move(int direction)
         {
-            int Index = currentRoom.GetID();
+            try
+            {
+                currentRoom = currentRoom.Connections[direction];
+                Console.WriteLine("You move forward...");
+            }
 
-            try { currentRoom = Map[Index - 1];
-                Console.WriteLine("You move backward..."); }
-
-            catch (ArgumentOutOfRangeException)
+            catch (KeyNotFoundException)
             {
                 Console.WriteLine("There doesn't seem to be anything that way.");
                 return;
