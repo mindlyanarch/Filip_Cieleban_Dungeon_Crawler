@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace DungeonExplorer.Code.Map;
+namespace DungeonExplorer
 {
-   
-        internal abstract class Room
 
-        {
+    public abstract class Room
+
+    {
         public int roomID { get; protected set; }
-        public int roomFloor {  get; protected set; }
+        public int roomFloor { get; protected set; }
         public string Description { get; protected set; }
         public string Name { get; protected set; }
 
@@ -17,7 +17,7 @@ namespace DungeonExplorer.Code.Map;
         public int PossibleConnections { get; protected set; }
         public List<Creature> Enemies { get; protected set; }
         public List<GameItems> Inventory { get; protected set; }
-        
+
         public int roomLevel { get; protected set; }
 
         public bool IsVisited { get; set; }
@@ -29,7 +29,7 @@ namespace DungeonExplorer.Code.Map;
             Description = "You shouldn't be here.";
             Inventory = new();
             Enemies = new();
-             roomLevel = -1;
+            roomLevel = -1;
             IsVisited = false;
             Connections = new();
         }
@@ -89,7 +89,7 @@ namespace DungeonExplorer.Code.Map;
             Description = "Behind you lies a massive stone gate. There is no return.";
             IsVisited = true; //this should always be true
             PossibleConnections = 1;
-  
+
         }
     }
     internal class EmptyRoom : Room
@@ -106,4 +106,5 @@ namespace DungeonExplorer.Code.Map;
 
 
     }
+}
 

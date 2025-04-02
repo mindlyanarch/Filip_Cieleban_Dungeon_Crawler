@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 
-namespace DungeonExplorer.Code.Map;
+namespace DungeonExplorer
 {
     internal class GameMap
     {

@@ -92,7 +92,7 @@ namespace DungeonExplorer
             Name = "Torch of Aphelionbral";
             Description = "In the golden yellow light of Aphelionbral, close things, aren't. Far things, aren't.";
         }
-        public List<string> SetLight(Player player)
+        public override List<string> SetLight(Player player)
         {
             List<string> light = new();
 
