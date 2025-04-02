@@ -18,7 +18,8 @@ namespace DungeonExplorer
 
         private Dictionary<string, int> Cardinality { get; set; }
 
-        public  Player()
+
+        public Player()
         {
 
             MAXHP = 100;
@@ -29,14 +30,14 @@ namespace DungeonExplorer
 
         }
         public Player(Room location) : base(location)
-            {
-                currentRoom = location;
+        {
+            currentRoom = location;
 
-                MAXHP = 100;
-                HP = MAXHP;
-                 DefaultTorch torch = new();
+            MAXHP = 100;
+            HP = MAXHP;
+            DefaultTorch torch = new();
 
-                 EquippedTorch = torch;
+            EquippedTorch = torch;
 
 
             Cardinality = new();
@@ -46,98 +47,109 @@ namespace DungeonExplorer
             this.Cardinality.Add("West", 3);
 
             Debug.Assert(Name != null);
-                Debug.Assert(HP != 0 && MAXHP != 0);
-                Debug.Assert(currentRoom != null);
+            Debug.Assert(HP != 0 && MAXHP != 0);
+            Debug.Assert(currentRoom != null);
         }
-        
-         ///<Summary>
-         ///Displays Room name, Description and items.
-         ///</Summary>
 
-            public void Look()
-            {
+        ///<Summary>
+        ///Displays Room name, Description and items.
+        ///</Summary>
+
+        public void Look()
+        {
             //display room fluff
+            
+           
+
+            Console.WriteLine("This room is " + currentRoom.Name + "\n");
+            Console.WriteLine(currentRoom.GetDescription());
+
+            //check if room has items
+
+            currentRoom.GetContents();
+
+        }
+
+        public void CheckStatus()
+        {
             Console.Write("It's you.");
 
-            Console.ForegroundColor = ConsoleColor.Red;
+            if (this.HP < 50) { Console.ForegroundColor = ConsoleColor.Red; }
+            else { Console.ForegroundColor = ConsoleColor.Green; }
 
-            Console.WriteLine("Y̸̢̨͉͖̣̖̼̜̟̱̞̫̌ͅò̷̢̺̯̠͓̦̫̣̋̀̄̉̀̔͊̕̕ͅų̸̨̨͎͔̽͝'̸̧̤͓̝̻͖̬̗͖̩̗̩͚̣͑̌̔̒͋͌̾̿̎v̴̧̢͚̆̆̈́͛͠ę̷͌͊͗͐͠ ̴̹͔̯͇͒̇s̶͖͓̲̱̼̙̲̪̼̔͐͜é̸͙̳̜͎̈́͛̒͜ͅẹ̷̺̺͓̹̱̟̘̹͚̺̉̃̓̈́͛͂̌̚ṋ̴̑̂́͜ ̸̧̤̣͕̘̫͚͆͗͒̉́̀ḇ̷̨̞̦̥̯̯͙̖͕͍̲̩͌͘͜͝ȩ̴̨̼̥̩̩̪͎̺͎̤͛́̓̈́̈́̎͊́̍̀̚͘͜͝t̸̹͙̖͎̘̓t̴̺͌̌͐̚ë̵̖̺̘́̊̉͗̍r̷͉͔̪̈́́̇̉̈́̉̌̊̄͐̒̒͘ ̴̡̠̞̪̩̮̻̗̋̀̊̈́͂̈́͒͛̋̍͌̚̕̕d̷̙̰͔̘͇̄͌͌͠ȃ̶̡̢̛̱͖̦̘̫̭͙̟̠̫̭͓̀̀̄̎̃͊͂͛̎̂̈́̕͝y̵̬̹͍͉̼͓̦̗̱̤̙̠̰̟̙̒́͂̎͗̓̔̾̑͊̓̈́ṡ̵̢̳͍̳͍͙͓̆̕͜͜ͅ");
+            if (this.HP < 25) { Console.WriteLine("Y̸̢̨͉͖̣̖̼̜̟̱̞̫̌ͅò̷̢̺̯̠͓̦̫̣̋̀̄̉̀̔͊̕̕ͅų̸̨̨͎͔̽͝'̸̧̤͓̝̻͖̬̗͖̩̗̩͚̣͑̌̔̒͋͌̾̿̎v̴̧̢͚̆̆̈́͛͠ę̷͌͊͗͐͠ ̴̹͔̯͇͒̇s̶͖͓̲̱̼̙̲̪̼̔͐͜é̸͙̳̜͎̈́͛̒͜ͅẹ̷̺̺͓̹̱̟̘̹͚̺̉̃̓̈́͛͂̌̚ṋ̴̑̂́͜ ̸̧̤̣͕̘̫͚͆͗͒̉́̀ḇ̷̨̞̦̥̯̯͙̖͕͍̲̩͌͘͜͝ȩ̴̨̼̥̩̩̪͎̺͎̤͛́̓̈́̈́̎͊́̍̀̚͘͜͝t̸̹͙̖͎̘̓t̴̺͌̌͐̚ë̵̖̺̘́̊̉͗̍r̷͉͔̪̈́́̇̉̈́̉̌̊̄͐̒̒͘ ̴̡̠̞̪̩̮̻̗̋̀̊̈́͂̈́͒͛̋̍͌̚̕̕d̷̙̰͔̘͇̄͌͌͠ȃ̶̡̢̛̱͖̦̘̫̭͙̟̠̫̭͓̀̀̄̎̃͊͂͛̎̂̈́̕͝y̵̬̹͍͉̼͓̦̗̱̤̙̠̰̟̙̒́͂̎͗̓̔̾̑͊̓̈́ṡ̵̢̳͍̳͍͙͓̆̕͜͜ͅ"); }
+            else { Console.WriteLine("You've seen better days."); }
 
-            Console.ForegroundColor= ConsoleColor.Gray;
 
-                Console.WriteLine("This room is " + currentRoom.Name + "\n");
-                Console.WriteLine(currentRoom.GetDescription());
+                Console.ForegroundColor = ConsoleColor.Gray;
 
-                //check if room has items
+        }
 
-                currentRoom.GetContents();
+        /// <summary>
+        /// Displays items in inventory.
+        /// </summary>
+        public void GetInventory()
+        {
+            if (Inventory.Count == 0)
+            {
+                Console.WriteLine("Your bag is empty");
+                return;
 
             }
-         /// <summary>
-         /// Displays items in inventory.
-         /// </summary>
-            public void GetInventory()
+            else
             {
-                if (Inventory.Count == 0)
+                Console.WriteLine("There are items in your bag:");
+
+                foreach (GameItems item in Inventory)
                 {
-                    Console.WriteLine("Your bag is empty");
-                    return;
+                    Console.Write(Inventory.IndexOf(item) + 1 + ". ");
+                    Console.WriteLine(item.Name);
+                }
+            }
+        }
+        /// <summary>
+        /// Transfers item from room to player.
+        /// </summary>
+        public void PickUpItem()
+        {
+            //example of guard clause
+            //exits early to prevent null error
+
+            if (currentRoom.Inventory.Count == 0)
+            {
+                Console.WriteLine("There's nothing to pick up here...");
+                return;
+
+            }
+            else
+            {
+                Console.WriteLine("There are items here:");
+
+                foreach (GameItems item in currentRoom.Inventory)
+                {
+                    Console.Write(currentRoom.Inventory.IndexOf(item) + 1 + ". ");
+                    Console.WriteLine(item.Name);
+                }
+
+                Console.WriteLine("Which item do you wish to procure?");
+                string input = Console.ReadLine().ToLower();
+
+                if (!currentRoom.Inventory.Any(GameItems => GameItems.Name.ToLower().Contains(input)))
+                {
+                    Console.WriteLine("Item not found, perhaps you mistyped?");
 
                 }
                 else
                 {
-                    Console.WriteLine("There are items in your bag:");
+                    var target = currentRoom.Inventory.Find(GameItems => GameItems.Name.ToLower().Contains(input));
+                    this.Inventory.Add(target);
+                    currentRoom.Inventory.Remove(target);
 
-                    foreach (GameItems item in Inventory)
-                    {
-                        Console.Write(Inventory.IndexOf(item) + 1 + ". ");
-                        Console.WriteLine(item.Name);
-                    }
+                    Console.WriteLine("Picked up the {0}", target.Name);
                 }
+
             }
-         /// <summary>
-         /// Transfers item from room to player.
-         /// </summary>
-            public void PickUpItem()
-            {
-                //example of guard clause
-                //exits early to prevent null error
-
-                if (currentRoom.Inventory.Count == 0)
-                {
-                    Console.WriteLine("There's nothing to pick up here...");
-                    return;
-
-                }
-                else
-                {
-                    Console.WriteLine("There are items here:");
-
-                    foreach (GameItems item in currentRoom.Inventory)
-                    {
-                        Console.Write(currentRoom.Inventory.IndexOf(item) + 1 + ". ");
-                        Console.WriteLine(item.Name);
-                    }
-
-                    Console.WriteLine("Which item do you wish to procure?");
-                    string input = Console.ReadLine().ToLower();
-
-                    if (!currentRoom.Inventory.Any(GameItems => GameItems.Name.ToLower().Contains(input)))
-                    {
-                        Console.WriteLine("Item not found, perhaps you mistyped?");
-
-                    }
-                    else
-                    {
-                        var target = currentRoom.Inventory.Find(GameItems => GameItems.Name.ToLower().Contains(input));
-                        this.Inventory.Add(target);
-                        currentRoom.Inventory.Remove(target);
-
-                        Console.WriteLine("Picked up the {0}", target.Name);
-                    }
-
-                }
-            }
+        }
 
         /// <summary>
         /// Moves to next room in Map
@@ -149,8 +161,10 @@ namespace DungeonExplorer
             int Index = currentRoom.GetID();
 
             try
-            { currentRoom = Map[Index + 1];
-                Console.WriteLine("You move forward..."); }
+            {
+                currentRoom = Map[Index + 1];
+                Console.WriteLine("You move forward...");
+            }
 
             catch (ArgumentOutOfRangeException)
             {
@@ -170,6 +184,8 @@ namespace DungeonExplorer
             {
                 currentRoom = currentRoom.Connections[direction];
                 Console.WriteLine("You move forward...");
+
+                if (!currentRoom.IsVisited) { currentRoom.IsVisited = true; }
             }
 
             catch (KeyNotFoundException)
@@ -179,5 +195,24 @@ namespace DungeonExplorer
             }
 
         }
+        public void CheckMap(Dictionary<int, Room> Map)
+        {
+            Console.Clear();
+            foreach (Room room in Map.Values)
+            {
+                if (room.IsVisited)
+                {
+                    Console.Write($"{room.roomID}: ");
+                    foreach (Room connectedroom in room.Connections.Values)
+                    {
+                        if (connectedroom.IsVisited) { Console.Write($"{connectedroom.roomID} "); }
+                        else { Console.Write(" ? "); }
+                    }
+                    
+                }
+                Console.Write('\n');
+            }
+            Console.ReadKey();
         }
     }
+}

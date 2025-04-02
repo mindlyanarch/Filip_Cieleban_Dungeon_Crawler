@@ -56,13 +56,6 @@ namespace DungeonExplorer
 
             player.currentRoom = mapController.CurrentFloor[0];
 
-
-            //Player
-            Console.WriteLine("What is your name?");
-            string input = Console.ReadLine();
-
-
-
             // Change the playing logic into true and populate the while loop
             bool playing = true;
             while (playing)
@@ -82,7 +75,7 @@ namespace DungeonExplorer
                     case "l": { player.Look(); break; }
                     case "i": { player.GetInventory(); break; }
                     case "p": { player.PickUpItem(); break; }
-
+                    case "m": { player.CheckMap(mapController.CurrentFloor); break; }
   
 
                     case "w": { player.Move(0); break; }

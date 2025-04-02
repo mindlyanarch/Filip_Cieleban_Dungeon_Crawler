@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace DungeonExplorer
+namespace DungeonExplorer.Code.Map;
 {
    
-        public abstract class Room
-    {
+        internal abstract class Room
+
+        {
         public int roomID { get; protected set; }
         public int roomFloor {  get; protected set; }
         public string Description { get; protected set; }
@@ -19,7 +20,7 @@ namespace DungeonExplorer
         
         public int roomLevel { get; protected set; }
 
-        public bool IsVisited { get; protected set; }
+        public bool IsVisited { get; set; }
 
 
         public Room()
@@ -64,7 +65,7 @@ namespace DungeonExplorer
     }
 
 
-    public class EntranceRoom : Room
+    internal class EntranceRoom : Room
     {
         public EntranceRoom(int Floor, int ID)
         {
@@ -78,7 +79,7 @@ namespace DungeonExplorer
         }
     }
 
-    public class ExitRoom : Room
+    internal class ExitRoom : Room
     {
         public ExitRoom(int Floor, int ID)
         {
@@ -91,7 +92,7 @@ namespace DungeonExplorer
   
         }
     }
-    public class EmptyRoom : Room
+    internal class EmptyRoom : Room
     {
         public EmptyRoom(int Floor, int ID)
         {
@@ -106,4 +107,3 @@ namespace DungeonExplorer
 
     }
 
-}

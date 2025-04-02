@@ -8,7 +8,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DungeonExplorer
+
+namespace DungeonExplorer.Code.Map;
 {
     internal class GameMap
     {
