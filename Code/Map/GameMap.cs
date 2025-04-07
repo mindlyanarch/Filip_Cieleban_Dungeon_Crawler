@@ -13,6 +13,9 @@ namespace DungeonExplorer
 {
     internal class GameMap
     {
+        
+
+
         public Dictionary<string, Room> Master { get; private set; }
         public Dictionary<int, Dictionary<int, Room>> MasterFloorList { get; private set; }
         
@@ -39,8 +42,6 @@ namespace DungeonExplorer
 
             AdvancedRoomList = new();
                 AdvancedRoomList.Add(0, "Room_Boss");
-
-
 
 
         }
@@ -108,7 +109,13 @@ namespace DungeonExplorer
                 this.Floors++;
                 return newFloor;
         }
-
+        /// <summary>
+        /// Creates a new room with <paramref name="ID"/> on current Floor.
+        /// </summary>
+        /// <param name="Floors"></param>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public Room Create_Room_Basic(int Floors, int ID)
 
         {
@@ -130,16 +137,20 @@ namespace DungeonExplorer
             
         }
 
+        /// <summary>
+        /// Connects all rooms in the floor linearly.
+        /// </summary>
+        /// <param name="newFloor"></param>
         public void Corridor_Connect(Dictionary<int, Room> newFloor)
         {
 
             //Generate a 'corridor' so that entrance and exit are always linked
 
-            for (int i = 0; i < newFloor.Count - 1; i++)
+            for (int i = 0; i < newFloor.Count; i++)
             {
                 Room room = newFloor[i];
 
-                int dir = random.Next(room.PossibleConnections - 1);
+                int dir = random.Next(room.PossibleConnections);
 
                 bool loop = true;
                 while (loop)

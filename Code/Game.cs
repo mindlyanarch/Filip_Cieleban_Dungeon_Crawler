@@ -25,8 +25,9 @@ namespace DungeonExplorer
         public Testing testing;
         public Command command;
 
+        private List<Controller> controllerList;
         private DisplayController displayController;
-        private CreatureController enemyController;
+        private CreatureController creatureController;
         private MapController mapController;
 
         public Game()
@@ -35,9 +36,14 @@ namespace DungeonExplorer
 
             //controllers
 
-            displayController = new(this); //handles screen output 
-            enemyController = new();
-            mapController = new();
+            controllerList= new();
+
+                controllerList.Add(displayController = new()); //handles screen output 
+                controllerList.Add(creatureController = new());//handles enemies
+                controllerList.Add(mapController = new()); //handles rooms
+
+            foreach (var controller in controllerList) 
+            {controller.Get_Controller_List(controllerList); }
 
             mapController.CreateFloor(9, 0);
 
@@ -104,8 +110,8 @@ namespace DungeonExplorer
                 Console.Clear();
 
                 //Game processing:
-                enemyController.GetEnemies(player);
-                enemyController.EnemyTurn();
+                creatureController.GetEnemies(player);
+                creatureController.EnemyTurn();
 
             }
         }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-    internal class DisplayController()
+    internal class DisplayController() : Controller
     {
 
         public List<string> info { get; private set; }

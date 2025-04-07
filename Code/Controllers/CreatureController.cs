@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-    internal class CreatureController
+    internal class CreatureController : Controller
     {
         List<Enemy> creatures;
         public CreatureController()

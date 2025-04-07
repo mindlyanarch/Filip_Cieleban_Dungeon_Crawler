@@ -10,8 +10,12 @@ namespace DungeonExplorer
 {
 
 
-    internal class MapController
+    internal class MapController : Controller
     {
+
+
+
+
         //This map controller handles all communication related to position.
 
         public GameMap Map {get; private set;}

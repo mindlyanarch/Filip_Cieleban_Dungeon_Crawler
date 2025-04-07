@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-    internal class DataController
+    internal class DataController : Controller
     {
+
         //Currently unused
 
         //This object handles external data storage
