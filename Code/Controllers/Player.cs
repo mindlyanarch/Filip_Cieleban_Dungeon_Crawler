@@ -151,28 +151,8 @@ namespace DungeonExplorer
             }
         }
 
-        /// <summary>
-        /// Moves to next room in Map
-        /// </summary>
-        /// <param name="Map"></param>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void Move_Forward(List<Room> Map)
-        {
-            int Index = currentRoom.GetID();
 
-            try
-            {
-                currentRoom = Map[Index + 1];
-                Console.WriteLine("You move forward...");
-            }
-
-            catch (ArgumentOutOfRangeException)
-            {
-                Console.WriteLine("There doesn't seem to be anything that way.");
-                return;
-            }
-
-        }
+    
         /// <summary>
         /// Moves to previous room in Map
         /// </summary>
@@ -197,6 +177,8 @@ namespace DungeonExplorer
         }
         public void CheckMap(Dictionary<int, Room> Map)
         {
+
+
             Console.Clear();
             foreach (Room room in Map.Values)
             {
@@ -213,6 +195,8 @@ namespace DungeonExplorer
                 Console.Write('\n');
             }
             Console.ReadKey();
+            
+
         }
     }
 }
