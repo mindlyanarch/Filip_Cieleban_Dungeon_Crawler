@@ -13,12 +13,12 @@ namespace DungeonExplorer
 {
     internal class GameMap
     {
-        
+
 
 
         public Dictionary<string, Room> Master { get; private set; }
         public Dictionary<int, Dictionary<int, Room>> MasterFloorList { get; private set; }
-        
+
         //Master Lists to draw basic and special rooms from
 
         public Dictionary<int, string> BasicRoomList { get; private set; }
@@ -34,14 +34,14 @@ namespace DungeonExplorer
             MasterFloorList = new();
 
             BasicRoomList = new();
-                BasicRoomList.Add(0, "Room_Empty");
-                BasicRoomList.Add(1, "Room_Foundry");
-                BasicRoomList.Add(2, "Room_Treasure");
-                BasicRoomList.Add(3, "Room_Barracks");
-                BasicRoomList.Add(3, "Room_Ruined");
+            BasicRoomList.Add(0, "Room_Empty");
+            BasicRoomList.Add(1, "Room_Foundry");
+            BasicRoomList.Add(2, "Room_Treasure");
+            BasicRoomList.Add(3, "Room_Barracks");
+            BasicRoomList.Add(3, "Room_Ruined");
 
             AdvancedRoomList = new();
-                AdvancedRoomList.Add(0, "Room_Boss");
+            AdvancedRoomList.Add(0, "Room_Boss");
 
 
         }
@@ -65,14 +65,14 @@ namespace DungeonExplorer
             //Generate an entrance first and exit first
             //Every other room goes between
 
-            
+
             int ID = 1;
 
             Room_Entrance entrance = new(Floors, 0);
-            newFloor.Add(0, entrance); 
+            newFloor.Add(0, entrance);
 
             Room_Exit exit = new(Floors, size);
-            newFloor.Add(size, exit); 
+            newFloor.Add(size, exit);
 
             // ---------------------------------------
             // ---------------------------------------
@@ -87,7 +87,7 @@ namespace DungeonExplorer
 
             }
 
-            Corridor_Connect(newFloor);
+            Generate_Corridor(newFloor, Corridor);
 
 
 
@@ -104,10 +104,10 @@ namespace DungeonExplorer
             // ---------------------------------------
 
 
-        
-                MasterFloorList.Add(this.Floors, newFloor);
-                this.Floors++;
-                return newFloor;
+
+            MasterFloorList.Add(this.Floors, newFloor);
+            this.Floors++;
+            return newFloor;
         }
         /// <summary>
         /// Creates a new room with <paramref name="ID"/> on current Floor.
@@ -119,7 +119,7 @@ namespace DungeonExplorer
         public Room Create_Room_Basic(int Floors, int ID)
 
         {
-            
+
 
             int select = Convert.ToInt32(new Random(BasicRoomList.Count));
 
@@ -131,21 +131,36 @@ namespace DungeonExplorer
                 case 3: { Room_Barracks room = new(Floors, ID); return room; }
                 case 4: { Room_Ruined room = new(Floors, ID); return room; }
                 default: { throw new ArgumentOutOfRangeException(); }
-                    
+
             }
-            
-            
+
+
         }
 
         /// <summary>
         /// Connects all rooms in the floor linearly.
         /// </summary>
         /// <param name="newFloor"></param>
-        public void Corridor_Connect(Dictionary<int, Room> newFloor)
+        public void Generate_Corridor(Dictionary<int, Room> newFloor, double Corridor)
         {
 
-            //Generate a 'corridor' so that entrance and exit are always linked
+            int i = 0;
+            random = new();
+            Connect_Room(newFloor[i], random.Next(newFloor.Count - 1));
 
+            while (i <= Corridor)
+            {
+
+
+            }
+
+
+            //Generate a 'corridor' so that entrance and exit are guaranteed always linked
+
+
+
+
+            /*
             for (int i = 0; i < newFloor.Count; i++)
             {
                 Room room = newFloor[i];
@@ -205,8 +220,17 @@ namespace DungeonExplorer
 
                 newFloor[i + 1].Connections.Add(dir, room);
                 //Iterate through each room until all connections are done
+            */
+        }
 
-            }
+    
+        /// <summary>
+        /// Connect one room to another.
+        /// </summary>
+        /// <param name="room"></param>
+        /// <param name="next"></param>
+        public void Connect_Room(Room room, int next)
+        {
 
         }
     }
