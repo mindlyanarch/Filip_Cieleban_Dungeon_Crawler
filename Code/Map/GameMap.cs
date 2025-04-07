@@ -81,7 +81,7 @@ namespace DungeonExplorer
             //Generate an entrance and exit first
             int ID = 0;
 
-            EntranceRoom entrance = new(Floors, ID);
+            Room_Entrance entrance = new(Floors, ID);
             newFloor.Add(ID, entrance); ID++;
 
 
@@ -89,12 +89,12 @@ namespace DungeonExplorer
             //populate rest of floor
             while (ID < size - 1)
             {
-                EmptyRoom room = new(Floors, ID);
+                Room_Empty room = new(Floors, ID);
                 newFloor.Add(ID, room); ID++;
 
             }
 
-            ExitRoom exit = new(Floors, ID);
+            Room_Exit exit = new(Floors, ID);
             newFloor.Add(ID, exit); ID++;
 
             Random random = new();
