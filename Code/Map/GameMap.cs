@@ -14,8 +14,12 @@ namespace DungeonExplorer
     internal class GameMap
     {
         public Dictionary<string, Room> Master { get; private set; }
-
         public Dictionary<int, Dictionary<int, Room>> MasterFloorList { get; private set; }
+        
+        //Master Lists to draw basic and special rooms from
+
+        public Dictionary<int, string> BasicRoomList { get; private set; }
+        public Dictionary<int, string> AdvancedRoomList { get; private set; }
 
         private Random random = new();
 
@@ -26,49 +30,22 @@ namespace DungeonExplorer
             Master = new();
             MasterFloorList = new();
 
-            //Hard coded mandatory rooms
+            BasicRoomList = new();
+                BasicRoomList.Add(0, "Room_Empty");
+                BasicRoomList.Add(1, "Room_Foundry");
+                BasicRoomList.Add(2, "Room_Treasure");
+                BasicRoomList.Add(3, "Room_Barracks");
+                BasicRoomList.Add(3, "Room_Ruined");
 
-
-            //temp for testing
+            AdvancedRoomList = new();
+                AdvancedRoomList.Add(0, "Room_Boss");
 
 
 
 
         }
 
-        /*
-        public void DisplayMap()
-        {
-            Console.Clear();
 
-            List<String> MapStack = new();
-
-            foreach (List<Room> Row in MapLevel_0)
-            {
-
-                foreach (Room room in Row)
-                {
-                    if (room.IsVisited == false)
-                    {
-                        MapStack.Add(" O ");
-                        MapStack.Add("=");
-                    }
-
-                    if (room.IsVisited == true)
-                    {
-                        MapStack.Add(" X ");
-                        MapStack.Add("=");
-                    }
-
-                }
-                MapStack.Add("\\n");
-            }
-
-            string output = String.Join("", MapStack);
-            Console.WriteLine(output);
-            Console.ReadKey();
-        }
-        */
 
         public Dictionary<int, Room> CreateFloor(int size, int difficulty)
         {
@@ -76,38 +53,93 @@ namespace DungeonExplorer
             //connect entrance and exit to a room
             //populate rest
 
-              Dictionary<int, Room> newFloor = new();
+            Random random = new();
 
-            //Generate an entrance and exit first
-            int ID = 0;
+            Dictionary<int, Room> newFloor = new();
 
-            Room_Entrance entrance = new(Floors, ID);
-            newFloor.Add(ID, entrance); ID++;
-
+            double Corridor = (size - 1) * 0.6;
+            double SpecialRooms = size - Corridor;
 
 
-            //populate rest of floor
-            while (ID < size - 1)
+            //Generate an entrance first and exit first
+            //Every other room goes between
+
+            
+            int ID = 1;
+
+            Room_Entrance entrance = new(Floors, 0);
+            newFloor.Add(0, entrance); 
+
+            Room_Exit exit = new(Floors, size);
+            newFloor.Add(size, exit); 
+
+            // ---------------------------------------
+            // ---------------------------------------
+            // ---------------------------------------
+
+
+            //populate floor with Corridor
+            while (ID < Corridor)
             {
-                Room_Empty room = new(Floors, ID);
-                newFloor.Add(ID, room); ID++;
+
+                newFloor.Add(ID, Create_Room_Basic(Floors, ID)); ID++;
 
             }
 
-            Room_Exit exit = new(Floors, ID);
-            newFloor.Add(ID, exit); ID++;
+            Corridor_Connect(newFloor);
 
-            Random random = new();
 
+
+
+
+            while (ID < SpecialRooms)
+            {
+                //newFloor.Add(ID, Create_Room_Basic(Floors, ID));
+                ID++;
+            }
+
+            // ---------------------------------------
+            // ---------------------------------------
+            // ---------------------------------------
+
+
+        
+                MasterFloorList.Add(this.Floors, newFloor);
+                this.Floors++;
+                return newFloor;
+        }
+
+        public Room Create_Room_Basic(int Floors, int ID)
+
+        {
+            
+
+            int select = Convert.ToInt32(new Random(BasicRoomList.Count));
+
+            switch (select)
+            {
+                case 0: { Room_Empty room = new(Floors, ID); return room; }
+                case 1: { Room_Foundry room = new(Floors, ID); return room; }
+                case 2: { Room_Treasure room = new(Floors, ID); return room; }
+                case 3: { Room_Barracks room = new(Floors, ID); return room; }
+                case 4: { Room_Ruined room = new(Floors, ID); return room; }
+                default: { throw new ArgumentOutOfRangeException(); }
+                    
+            }
+            
+            
+        }
+
+        public void Corridor_Connect(Dictionary<int, Room> newFloor)
+        {
 
             //Generate a 'corridor' so that entrance and exit are always linked
 
-
             for (int i = 0; i < newFloor.Count - 1; i++)
             {
-                Room room = newFloor[i]; 
+                Room room = newFloor[i];
 
-                int dir = random.Next(room.PossibleConnections -1);
+                int dir = random.Next(room.PossibleConnections - 1);
 
                 bool loop = true;
                 while (loop)
@@ -121,9 +153,9 @@ namespace DungeonExplorer
 
 
                         if (dir == value)
-                         {
+                        {
                             dir = random.Next(room.PossibleConnections - 1);
-                         }
+                        }
                         else
                         {
                             loop = false;
@@ -132,11 +164,11 @@ namespace DungeonExplorer
                     }
                 }
 
-                room.Connections.Add(dir, newFloor[i+1]);
+                room.Connections.Add(dir, newFloor[i + 1]);
 
                 //form strong connection between rooms
 
-                dir = random.Next(newFloor[i+1].PossibleConnections);
+                dir = random.Next(newFloor[i + 1].PossibleConnections);
 
                 loop = true;
                 while (loop)
@@ -150,7 +182,7 @@ namespace DungeonExplorer
 
                         if (dir == value)
                         {
-                            dir = random.Next(newFloor[i+1].PossibleConnections - 1);
+                            dir = random.Next(newFloor[i + 1].PossibleConnections - 1);
                         }
                         else
                         {
@@ -160,19 +192,12 @@ namespace DungeonExplorer
                     }
                 }
 
-                newFloor[i + 1].Connections.Add(dir,room);
+                newFloor[i + 1].Connections.Add(dir, room);
                 //Iterate through each room until all connections are done
 
             }
 
-
-           
-                MasterFloorList.Add(this.Floors, newFloor);
-                this.Floors++;
-                return newFloor;
         }
-
-
     }
 
 

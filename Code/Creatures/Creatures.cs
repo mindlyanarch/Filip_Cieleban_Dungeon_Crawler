@@ -17,7 +17,7 @@ namespace DungeonExplorer
             public int ID { get; protected set; }
             public string Name { get; protected set; }
             public string Description { get; protected set; }
-
+            public bool Hostile { get; protected set; }
 
             public Room currentRoom { get;  set; }
 
@@ -67,10 +67,7 @@ namespace DungeonExplorer
 
         interface IEnemyAI
 
-        {
-        public void Turn();
-        
-        }
+        { public void Turn(); }
         interface IDamageable
         {
 
@@ -88,13 +85,21 @@ namespace DungeonExplorer
                 MAXHP = 10;
                 HP = MAXHP;
                 Damage = 5;
-
+                Hostile = false;
 
                 
             }
-            public override void Turn()
+        public override void Turn()
+        {
+            if (!Hostile)
+            { Console.WriteLine("The rat chitters away idly."); }
+
+            else
+
             {
-                Console.WriteLine("The rat chitters away idly.");
+              //  Player target = currentRoom
+              //  player.TakeDamage(Damage);
+            }
             }
         }
 

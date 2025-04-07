@@ -15,10 +15,10 @@ namespace DungeonExplorer
         //This map controller handles all communication related to position.
 
         public GameMap Map {get; private set;}
-
         public int CurrentLevel {get; private set;}
-
         public Dictionary<int, Room> CurrentFloor { get; private set;} 
+
+
 
         public MapController()
         {
@@ -26,7 +26,7 @@ namespace DungeonExplorer
 
             CurrentLevel = 0;
 
-            CurrentFloor = new(CreateFloor(9,0));
+            CurrentFloor = new(CreateFloor(9,1));
 
         }
 
@@ -39,6 +39,8 @@ namespace DungeonExplorer
         {
             Dictionary<int, Room> newFloor = this.Map.CreateFloor(size, difficulty);
 
+
+            //creatureController.PopulateFloor(newFloor, difficulty);
             return newFloor;
         }
 
