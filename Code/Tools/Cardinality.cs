@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-   
+
     internal class Cardinality
     {
         public Dictionary<string, int> Cardinals { get; private set; }
-        public Cardinality() 
+        public Cardinality()
         {
             Cardinals = new();
             Cardinals.Add("North", 0);
@@ -20,7 +20,7 @@ namespace DungeonExplorer
 
         }
 
-        public int GetOppositeDirection(int direction)
+        public static int GetOppositeDirection(int direction)
         {
 
             switch (direction)
@@ -34,4 +34,5 @@ namespace DungeonExplorer
 
             }
         }
+    }
 }

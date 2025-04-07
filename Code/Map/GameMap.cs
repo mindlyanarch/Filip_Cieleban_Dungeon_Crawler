@@ -38,7 +38,7 @@ namespace DungeonExplorer
             BasicRoomList.Add(1, "Room_Foundry");
             BasicRoomList.Add(2, "Room_Treasure");
             BasicRoomList.Add(3, "Room_Barracks");
-            BasicRoomList.Add(3, "Room_Ruined");
+            BasicRoomList.Add(4, "Room_Ruined");
 
             AdvancedRoomList = new();
             AdvancedRoomList.Add(0, "Room_Boss");
@@ -58,36 +58,17 @@ namespace DungeonExplorer
 
             Dictionary<int, Room> newFloor = new();
 
-            double Corridor = (size - 1) * 0.6;
-            double SpecialRooms = size - Corridor;
+            int Corridor = Convert.ToInt32((size - 1) * 0.6);
+            int SpecialRooms = size - Corridor;
 
 
-            //Generate an entrance first and exit first
-            //Every other room goes between
+
+            
 
 
-            int ID = 1;
+            int ID = 0;
 
-            Room_Entrance entrance = new(Floors, 0);
-            newFloor.Add(0, entrance);
-
-            Room_Exit exit = new(Floors, size);
-            newFloor.Add(size, exit);
-
-            // ---------------------------------------
-            // ---------------------------------------
-            // ---------------------------------------
-
-
-            //populate floor with Corridor
-            while (ID < Corridor)
-            {
-
-                newFloor.Add(ID, Create_Room_Basic(Floors, ID)); ID++;
-
-            }
-
-            Generate_Corridor(newFloor, Corridor);
+            Generate_Corridor(newFloor, ref ID, ref Corridor);
 
 
 
@@ -120,8 +101,8 @@ namespace DungeonExplorer
 
         {
 
-
-            int select = Convert.ToInt32(new Random(BasicRoomList.Count));
+            Random random = new();
+            int select = random.Next(BasicRoomList.Count);
 
             switch (select)
             {
@@ -141,102 +122,175 @@ namespace DungeonExplorer
         /// Connects all rooms in the floor linearly.
         /// </summary>
         /// <param name="newFloor"></param>
-        public void Generate_Corridor(Dictionary<int, Room> newFloor, double Corridor)
-        {
+        public void Generate_Corridor(Dictionary<int, Room> newFloor, ref int ID, ref int Corridor)
+        { 
 
-            int i = 0;
-            random = new();
-            Connect_Room(newFloor[i], random.Next(newFloor.Count - 1));
-
-            while (i <= Corridor)
+            while (ID <= Corridor)
             {
+                if (ID == 0)
+                {
+                    
+                  Room_Entrance entrance = new(Floors, ID);  //create entrance room as the first room
+                  newFloor.Add(ID, entrance); ID++;
 
+                  Room next = Create_Room_Basic(Floors, random.Next(BasicRoomList.Count));
+                    newFloor.Add(ID, next); ID++;
+
+                  Connect_Rooms(entrance, next, newFloor);
+                  
+                }
+
+                else if (ID == Corridor)
+                {
+                    Room_Exit exit = new(Floors, ID);
+                    newFloor.Add(ID, exit);
+                    while (true)
+                    {
+                        int next = random.Next(newFloor.Count);
+
+                        if (newFloor[next] == exit) { continue; }
+                        if (newFloor[next].Connections.Count != newFloor[next].PossibleConnections)
+                        {
+                            Connect_Rooms(exit, newFloor[next], newFloor); ID++;
+                            break;
+                        }
+                    }
+
+                }
+
+                else
+                {
+                    Room room = Create_Room_Basic(Floors, random.Next(BasicRoomList.Count));
+                    newFloor.Add(ID, room); ID++;
+
+                    while (true)
+                    {
+                        int next = random.Next(newFloor.Count);
+
+                        if (newFloor[next] == room) { continue; }
+
+                        if (newFloor[next].Connections.Count != newFloor[next].PossibleConnections)
+                        {
+                            Connect_Rooms(room, newFloor[next], newFloor);
+                            break;
+                        }
+                    }
+                }
 
             }
+            
+            
 
-
-            //Generate a 'corridor' so that entrance and exit are guaranteed always linked
-
-
-
-
-            /*
-            for (int i = 0; i < newFloor.Count; i++)
-            {
-                Room room = newFloor[i];
-
-                int dir = random.Next(room.PossibleConnections);
-
-                bool loop = true;
-                while (loop)
-                {
-
-                    if (room.Connections.Count == 0)
-                    { break; }
-
-                    foreach (int value in room.Connections.Keys)
-                    {
-
-
-                        if (dir == value)
-                        {
-                            dir = random.Next(room.PossibleConnections - 1);
-                        }
-                        else
-                        {
-                            loop = false;
-                            break;
-                        }
-                    }
-                }
-
-                room.Connections.Add(dir, newFloor[i + 1]);
-
-                //form strong connection between rooms
-
-                dir = random.Next(newFloor[i + 1].PossibleConnections);
-
-                loop = true;
-                while (loop)
-                {
-
-                    if (newFloor[i + 1].Connections.Count == 0)
-                    { break; }
-
-                    foreach (int value in room.Connections.Keys)
-                    {
-
-                        if (dir == value)
-                        {
-                            dir = random.Next(newFloor[i + 1].PossibleConnections - 1);
-                        }
-                        else
-                        {
-                            loop = false;
-                            break;
-                        }
-                    }
-                }
-
-                newFloor[i + 1].Connections.Add(dir, room);
-                //Iterate through each room until all connections are done
-            */
+            
+           
         }
 
-    
+
         /// <summary>
         /// Connect one room to another.
         /// </summary>
         /// <param name="room"></param>
         /// <param name="next"></param>
-        public void Connect_Room(Room room, int next)
+        /// 
+        public void Connect_Rooms(Room current, Room next, Dictionary<int, Room> newFloor)
         {
+            Random random = new();
+
+            int dir;
+            int dirOpp;
+
+            while (true)
+
+            //check if current and next room connections have space.
+            {
+                dir = random.Next(4);
+                dirOpp = Cardinality.GetOppositeDirection(dir);
+                try
+                {
+                    if (!current.Connections.ContainsKey(dir)  & !next.Connections.ContainsKey(dirOpp))
+                    {
+                        current.Connections.Add(dir, next);
+
+                        next.Connections.Add(dirOpp, current);
+                        break;
+                    }
+                }
+                catch (KeyNotFoundException) { continue; }
+            }
 
         }
+
+        //Generate a 'corridor' so that entrance and exit are guaranteed always linked
+
+
+
+
+        /*
+        for (int i = 0; i < newFloor.Count; i++)
+        {
+            Room room = newFloor[i];
+
+            int dir = random.Next(room.PossibleConnections);
+
+            bool loop = true;
+            while (loop)
+            {
+
+                if (room.Connections.Count == 0)
+                { break; }
+
+                foreach (int value in room.Connections.Keys)
+                {
+
+
+                    if (dir == value)
+                    {
+                        dir = random.Next(room.PossibleConnections - 1);
+                    }
+                    else
+                    {
+                        loop = false;
+                        break;
+                    }
+                }
+            }
+
+            room.Connections.Add(dir, newFloor[i + 1]);
+
+            //form strong connection between rooms
+
+            dir = random.Next(newFloor[i + 1].PossibleConnections);
+
+            loop = true;
+            while (loop)
+            {
+
+                if (newFloor[i + 1].Connections.Count == 0)
+                { break; }
+
+                foreach (int value in room.Connections.Keys)
+                {
+
+                    if (dir == value)
+                    {
+                        dir = random.Next(newFloor[i + 1].PossibleConnections - 1);
+                    }
+                    else
+                    {
+                        loop = false;
+                        break;
+                    }
+                }
+            }
+
+            newFloor[i + 1].Connections.Add(dir, room);
+            //Iterate through each room until all connections are done
+        */
     }
-
-
 }
+
+
+
 
 
 
