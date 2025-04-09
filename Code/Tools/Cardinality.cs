@@ -10,14 +10,15 @@ namespace DungeonExplorer
     internal class Cardinality
     {
         public Dictionary<string, int> Cardinals { get; private set; }
+
         public Cardinality()
         {
+
             Cardinals = new();
             Cardinals.Add("North", 0);
             Cardinals.Add("East", 1);
             Cardinals.Add("South", 2);
             Cardinals.Add("West", 3);
-
         }
 
         public static int GetOppositeDirection(int direction)
@@ -33,6 +34,17 @@ namespace DungeonExplorer
                 default: { throw new ArgumentOutOfRangeException(); }
 
             }
+        }
+
+        public string GetCardinalString(int direction)
+
+        {
+            foreach (var card in Cardinals)
+            {
+                if (card.Value == direction)
+                    return card.Key;
+            }
+            return default;
         }
     }
 }

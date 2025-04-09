@@ -86,9 +86,9 @@ namespace DungeonExplorer
   
 
                     case "w": { player.Move(0); break; }
-                    case "a": { player.Move(1); break; }
+                    case "a": { player.Move(3); break; }
                     case "s": { player.Move(2); break; }
-                    case "d": { player.Move(3); break; }
+                    case "d": { player.Move(1); break; }
 
                     case "q": { playing = false; break; }
                     case "n": { testing.DebugMenu(this, player); break; }

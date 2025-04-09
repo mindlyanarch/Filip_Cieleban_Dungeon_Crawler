@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Numerics;
@@ -32,11 +33,15 @@ namespace DungeonExplorer
 
         public List<string> Update(Game game)
         {
-            
+            Cardinality cardinal = new();
             if (!(game.player.EquippedTorch == null))
             {
                 this.info = game.player.EquippedTorch.SetLight(game.player);
 
+                foreach (var connection in game.player.currentRoom.Connections.Keys)
+                {
+                    this.info.Add($"There is an exit leading {cardinal.GetCardinalString(connection)}.");
+                }
                 return info;
             }
             else 

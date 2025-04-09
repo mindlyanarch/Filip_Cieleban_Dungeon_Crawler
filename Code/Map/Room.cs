@@ -90,6 +90,7 @@ namespace DungeonExplorer
             Description = "One of many, there doesn't seem to be anything notable here.";
             PossibleConnections = 4;
             PossibleTraps = 4;
+            roomLevel = 1;
         }
 
 
@@ -104,6 +105,7 @@ namespace DungeonExplorer
             Description = "Your imagination can still feel the heat in the forges.";
             PossibleConnections = 4;
             PossibleTraps = 4;
+            roomLevel = 1;
 
         }
 
@@ -119,7 +121,7 @@ namespace DungeonExplorer
             Description = "The room is littered with artifacts, which indicate this room was once important.";
             PossibleConnections = 4;
             PossibleTraps = 4;
-
+            roomLevel = 2;
         }
 
 
@@ -134,7 +136,7 @@ namespace DungeonExplorer
             Description = "People lived here once.";
             PossibleConnections = 4;
             PossibleTraps = 4;
-
+            roomLevel = 3;
         }
 
 
@@ -149,6 +151,7 @@ namespace DungeonExplorer
             Description = "Whatever this room used to contain is buried under rubble.";
             PossibleConnections = 4;
             PossibleTraps = 4;
+            roomLevel = 0;
 
         }
 
@@ -168,6 +171,7 @@ namespace DungeonExplorer
             IsVisited = true; // this should always be true 
             PossibleConnections = 1;
             PossibleTraps = 0;
+            roomLevel = 0;
         }
     }
     internal class Room_Exit : Room
@@ -176,12 +180,12 @@ namespace DungeonExplorer
         {
             roomID = ID;
             roomFloor = Floor;
-            Name = "Entrance Hall";
-            Description = "Behind you lies a massive stone gate. There is no return.";
+            Name = "Stairwell";
+            Description = "The descent continues.";
             IsVisited = true; //this should always be true
             PossibleConnections = 1;
             PossibleTraps = 0;
-
+            roomLevel = 0;
         }
     }
     internal class Room_Puzzle : Room
@@ -194,7 +198,7 @@ namespace DungeonExplorer
             Description = "A shrine dedicated to one of the gods of this realm.";
             PossibleConnections = 4;
             PossibleTraps = 4;
-
+            roomLevel = 0;
         }
 
 
@@ -209,7 +213,7 @@ namespace DungeonExplorer
             Description = "You can sense the presence of a powerful foe in this room.";
             PossibleConnections = 4;
             PossibleTraps = 4;
-
+            roomLevel = 0;
         }
 
 

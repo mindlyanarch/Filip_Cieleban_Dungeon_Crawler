@@ -20,6 +20,7 @@ namespace DungeonExplorer
 
         public GameMap Map {get; private set;}
         public int CurrentLevel {get; private set;}
+        public int Currentdifficulty {get; private set;}
         public Dictionary<int, Room> CurrentFloor { get; private set;} 
 
 
@@ -29,6 +30,7 @@ namespace DungeonExplorer
             Map = new();
 
             CurrentLevel = 0;
+            currentDifficulty = 0;
 
             CurrentFloor = new(CreateFloor(9,1));
 
@@ -48,7 +50,7 @@ namespace DungeonExplorer
             return newFloor;
         }
 
-
+        public void PopulateCreatures (int )
 
 
 
