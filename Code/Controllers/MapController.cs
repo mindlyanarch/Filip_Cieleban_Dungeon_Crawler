@@ -30,27 +30,31 @@ namespace DungeonExplorer
             Map = new();
 
             CurrentLevel = 0;
-            currentDifficulty = 0;
+            
 
-            CurrentFloor = new(CreateFloor(9,1));
+            
 
+        }
+
+        public Dictionary<int, Room> SetCurrentFloor(Dictionary<int, Room> map)
+        {
+            CurrentFloor = map;
+            return CurrentFloor;
         }
 
 
 
-
-
-        public Dictionary<int, Room> CreateFloor(int size, int difficulty)
+        public Dictionary<int, Room> CreateFloor(int size, int difficulty, CreatureController creatureController)
 
         {
             Dictionary<int, Room> newFloor = this.Map.CreateFloor(size, difficulty);
 
-
+            creatureController.PopulateFloor(newFloor);
             //creatureController.PopulateFloor(newFloor, difficulty);
             return newFloor;
         }
 
-        public void PopulateCreatures (int )
+
 
 
 

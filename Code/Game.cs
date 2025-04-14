@@ -45,8 +45,8 @@ namespace DungeonExplorer
             foreach (var controller in controllerList) 
             {controller.Get_Controller_List(controllerList); }
 
-            mapController.CreateFloor(9, 0);
-
+            mapController.SetCurrentFloor(mapController.CreateFloor(9, 0, creatureController));
+            
 
             command = new();
             testing = new Testing(player);

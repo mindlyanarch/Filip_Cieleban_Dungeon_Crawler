@@ -18,21 +18,18 @@ namespace DungeonExplorer
             public string Name { get; protected set; }
             public string Description { get; protected set; }
             public bool Hostile { get; protected set; }
-
+            
+            public int difficulty { get; protected set; }
             public Room currentRoom { get;  set; }
 
             public Creature()
             {
                 Name = "Creature";
                 Description = "This shouldn't exist.";
-
+                difficulty = 1;
             }
-        public Creature(Room location)
-        {
-            Name = "Creature";
-            Description = "This shouldn't exist.";
 
-        }
+        
 
         /// <summary>
         /// 
@@ -56,7 +53,11 @@ namespace DungeonExplorer
         {
         bool Aggressive = false;
 
-        public Enemy(Room location) : base(location) 
+        public Enemy()
+        {
+
+        }
+        public Enemy(Room location) 
         {
             currentRoom = location;
         }
@@ -78,7 +79,18 @@ namespace DungeonExplorer
         }
         internal class Rat : Enemy, IEnemyAI
         {
-            public Rat(Room location) : base(location) 
+        public Rat()
+        {
+            Name = "Rat";
+            Description = "A mangy rat. It will not attack unless provoked";
+            MAXHP = 10;
+            HP = MAXHP;
+            Damage = 5;
+            Hostile = false;
+
+
+        }
+        public Rat(Room location) : base(location) 
             {
                 Name = "Rat";
                 Description = "A mangy rat. It will not attack unless provoked";

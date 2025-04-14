@@ -29,7 +29,7 @@ namespace DungeonExplorer
             EquippedTorch = torch;
 
         }
-        public Player(Room location) : base(location)
+        public Player(Room location) 
         {
             currentRoom = location;
 
