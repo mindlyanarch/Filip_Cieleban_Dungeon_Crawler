@@ -61,10 +61,8 @@ namespace DungeonExplorer
             
            
 
-            Console.WriteLine("This room is " + currentRoom.Name + "\n");
-            Console.WriteLine(currentRoom.GetDescription());
-
-            //check if room has items
+            Console.WriteLine($"This room is {currentRoom.Name} \n");
+            Console.WriteLine($"{currentRoom.GetDescription()} \n");
 
             currentRoom.GetContents();
 
@@ -72,6 +70,9 @@ namespace DungeonExplorer
 
         public void CheckStatus()
         {
+
+            // Get player health bar
+
             Console.Write("It's you.");
 
             if (this.HP < 50) { Console.ForegroundColor = ConsoleColor.Red; }
@@ -81,7 +82,11 @@ namespace DungeonExplorer
             else { Console.WriteLine("You've seen better days."); }
 
 
-                Console.ForegroundColor = ConsoleColor.Gray;
+            Console.ForegroundColor = ConsoleColor.Gray;
+
+            //Get plauer inventory
+
+            GetInventory();
 
         }
 

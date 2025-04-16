@@ -67,17 +67,8 @@ namespace DungeonExplorer
 
     }
 
-        interface IEnemyAI
-
-        { public void Turn(); }
-        interface IDamageable
-        {
-
-            public void Attack();
-            public void TakeDamage(int Damage);
-      
-
-        }
+        interface IEnemyAI    { public void Turn(); }
+        interface IDamageable { public void Attack(); public void TakeDamage(int Damage); }
       
 
 }

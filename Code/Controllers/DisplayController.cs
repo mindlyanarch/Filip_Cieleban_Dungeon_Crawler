@@ -15,7 +15,6 @@ namespace DungeonExplorer
     {
 
         public List<string> info { get; private set; }
-
         public int torchLevel { get; private set; }
 
 
