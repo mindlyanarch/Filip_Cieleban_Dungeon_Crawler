@@ -19,7 +19,7 @@ namespace DungeonExplorer
             public string Description { get; protected set; }
             public bool Hostile { get; protected set; }
             
-            public int difficulty { get; protected set; }
+             public int difficulty { get; protected set; }
             public Room currentRoom { get;  set; }
 
             public Creature()
@@ -63,6 +63,7 @@ namespace DungeonExplorer
         }
 
         public virtual void Turn() { }
+        public virtual void Turn(Player target) { }
 
     }
 
@@ -77,42 +78,6 @@ namespace DungeonExplorer
       
 
         }
-        internal class Rat : Enemy, IEnemyAI
-        {
-        public Rat()
-        {
-            Name = "Rat";
-            Description = "A mangy rat. It will not attack unless provoked";
-            MAXHP = 10;
-            HP = MAXHP;
-            Damage = 5;
-            Hostile = false;
-
-
-        }
-        public Rat(Room location) : base(location) 
-            {
-                Name = "Rat";
-                Description = "A mangy rat. It will not attack unless provoked";
-                MAXHP = 10;
-                HP = MAXHP;
-                Damage = 5;
-                Hostile = false;
-
-                
-            }
-        public override void Turn()
-        {
-            if (!Hostile)
-            { Console.WriteLine("The rat chitters away idly."); }
-
-            else
-
-            {
-              //  Player target = currentRoom
-              //  player.TakeDamage(Damage);
-            }
-            }
-        }
+      
 
 }

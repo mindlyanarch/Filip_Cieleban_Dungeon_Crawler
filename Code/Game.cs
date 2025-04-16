@@ -105,14 +105,15 @@ namespace DungeonExplorer
                 if (!playing)
                 { break; }
 
-                Console.WriteLine("press any key to continue.");
-                Console.ReadKey();
-                Console.Clear();
+
 
                 //Game processing:
                 creatureController.GetEnemies(player);
-                creatureController.EnemyTurn();
+                creatureController.EnemyTurn(player);
 
+                Console.WriteLine("press any key to continue.");
+                Console.ReadKey();
+                Console.Clear();
             }
         }
 

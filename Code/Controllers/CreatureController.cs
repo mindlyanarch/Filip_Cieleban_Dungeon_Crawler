@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DungeonExplorer.Code.Creatures;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
@@ -14,12 +15,13 @@ namespace DungeonExplorer
         List<Enemy> Master_List_Creatures { get; set; }
         Dictionary<int, Enemy> SpawnTable { get; set; }
 
-        Rat rat;
-
+        private Rat rat;
+        private RatDire ratDire;
         public CreatureController()
         {
             SpawnTable = new();
                 SpawnTable.Add(0, rat = new());
+                SpawnTable.Add(1, ratDire = new());
 
             Master_List_Creatures = new();
 
@@ -43,12 +45,12 @@ namespace DungeonExplorer
             }
             return Master_List_Creatures;
         }
-        public void EnemyTurn()
+        public void EnemyTurn(Player player)
         {
             foreach (var enemy in this.Master_List_Creatures)
 
             {
-                enemy.Turn();
+                enemy.Turn(player);
             }
 
         }
