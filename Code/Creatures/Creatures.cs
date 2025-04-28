@@ -42,12 +42,21 @@ namespace DungeonExplorer
                 
             
             }
-            public void TakeDamage(int damage) {HP -= damage;}
+            public void TakeDamage(int damage)
+        {
+            HP -= damage;
+            
+            if (HP <= 0)
+            {
+                this.currentRoom.Enemies.Remove(this);
+            }
+        }
 
 
 
         }
-
+        
+       
 
         public abstract class Enemy : Creature, IEnemyAI
         {

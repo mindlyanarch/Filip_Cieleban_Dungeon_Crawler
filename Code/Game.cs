@@ -74,7 +74,7 @@ namespace DungeonExplorer
                 displayController.Display_Main(command);
 
 
-                ConsoleKeyInfo choice = Console.ReadKey();
+                ConsoleKeyInfo choice = Console.ReadKey(); //using consolekeyinfo allows distinction between lower and capital, it doesn't work with my system any other way
                 Console.Clear();
 
                 switch (choice.KeyChar.ToString())
@@ -86,7 +86,13 @@ namespace DungeonExplorer
 
                     case "p": { player.PickUpItem(); break; }
                     case "m": { player.CheckMap(mapController.CurrentFloor); break; }
-  
+
+                    case "f":
+                        {
+                            Creature target = player.Attack();
+                            target.TakeDamage(player.EquippedSword.damage);
+                            break;
+                        }
 
                     case "w": { player.Move(0); break; }
                     case "a": { player.Move(3); break; }

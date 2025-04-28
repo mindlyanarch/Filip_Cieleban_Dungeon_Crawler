@@ -25,7 +25,7 @@ namespace DungeonExplorer
             playing.Add("i. Status");
             playing.Add("q. Quit");
             playing.Add("p. Pick Up.");
-            playing.Add("F. Attack");
+            playing.Add("f. Attack");
         }
     }
 
