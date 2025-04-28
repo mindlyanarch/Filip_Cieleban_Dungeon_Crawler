@@ -81,6 +81,8 @@ namespace DungeonExplorer
 
                     case "l": { player.Look(); break; }
                     case "i": { player.CheckStatus(); break; }
+
+
                     case "p": { player.PickUpItem(); break; }
                     case "m": { player.CheckMap(mapController.CurrentFloor); break; }
   

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-    public class Sword : GameItems
+    public class Sword : GameItems, IUsable
     {
         private int Damage { get; set; }
         public int damage { get { return Damage; } }
@@ -17,10 +17,13 @@ namespace DungeonExplorer
         {
             Name = name;
             Description = description;
-
+            Type = "Sword";
 
             Damage = damage;
 
         }
+
+        public void Use()
+        { }
     }
 }

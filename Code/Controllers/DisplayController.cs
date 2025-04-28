@@ -53,6 +53,8 @@ namespace DungeonExplorer
         
         public void Display_Main(Command command)
         {
+            //logic to display main game data in columns
+
             byte max = Math.Max(Convert.ToByte(command.playing.Count), Convert.ToByte(this.info.Count));
 
             for (int i = 0; i < max; i++)

@@ -1,9 +1,12 @@
-﻿using System;
+﻿using DungeonExplorer.Code.Items;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 
 namespace DungeonExplorer
 {
@@ -18,6 +21,7 @@ namespace DungeonExplorer
 
         private Dictionary<string, int> Cardinality { get; set; }
 
+        private Potion potion;
 
         public Player()
         {
@@ -25,8 +29,17 @@ namespace DungeonExplorer
             MAXHP = 100;
             HP = MAXHP;
             DefaultTorch torch = new();
+            Sword sword = new("yes", "yes", 5);
+
+                potion = new();
+                potion = new();
+                potion = new();
+
+
             Description = "You've seen better days.";
             EquippedTorch = torch;
+            EquippedSword = sword;
+            Inventory.Add(potion);
 
         }
         public Player(Room location) 
@@ -70,48 +83,114 @@ namespace DungeonExplorer
 
         public void CheckStatus()
         {
+            List<string> sort = new();
+            sort.Add("Inventory");
+            sort.Add("Sword");
+            sort.Add("Potion");
+            sort.Add("Torch");
 
-            // Get player health bar
+            int i = 0;
+            
 
-            Console.Write("It's you.");
+            while (true)
+            {
+                if (i >= sort.Count) { i = 0; }
+                if (i < 0) { i = sort.Count - 1; }
+                string pointer = sort[i];
+                // Get player health bar
 
-            if (this.HP < 50) { Console.ForegroundColor = ConsoleColor.Red; }
-            else { Console.ForegroundColor = ConsoleColor.Green; }
+                Console.Write("It's you.");
 
-            if (this.HP < 25) { Console.WriteLine("Y̸̢̨͉͖̣̖̼̜̟̱̞̫̌ͅò̷̢̺̯̠͓̦̫̣̋̀̄̉̀̔͊̕̕ͅų̸̨̨͎͔̽͝'̸̧̤͓̝̻͖̬̗͖̩̗̩͚̣͑̌̔̒͋͌̾̿̎v̴̧̢͚̆̆̈́͛͠ę̷͌͊͗͐͠ ̴̹͔̯͇͒̇s̶͖͓̲̱̼̙̲̪̼̔͐͜é̸͙̳̜͎̈́͛̒͜ͅẹ̷̺̺͓̹̱̟̘̹͚̺̉̃̓̈́͛͂̌̚ṋ̴̑̂́͜ ̸̧̤̣͕̘̫͚͆͗͒̉́̀ḇ̷̨̞̦̥̯̯͙̖͕͍̲̩͌͘͜͝ȩ̴̨̼̥̩̩̪͎̺͎̤͛́̓̈́̈́̎͊́̍̀̚͘͜͝t̸̹͙̖͎̘̓t̴̺͌̌͐̚ë̵̖̺̘́̊̉͗̍r̷͉͔̪̈́́̇̉̈́̉̌̊̄͐̒̒͘ ̴̡̠̞̪̩̮̻̗̋̀̊̈́͂̈́͒͛̋̍͌̚̕̕d̷̙̰͔̘͇̄͌͌͠ȃ̶̡̢̛̱͖̦̘̫̭͙̟̠̫̭͓̀̀̄̎̃͊͂͛̎̂̈́̕͝y̵̬̹͍͉̼͓̦̗̱̤̙̠̰̟̙̒́͂̎͗̓̔̾̑͊̓̈́ṡ̵̢̳͍̳͍͙͓̆̕͜͜ͅ"); }
-            else { Console.WriteLine("You've seen better days."); }
+                    if (this.HP < 50) { Console.ForegroundColor = ConsoleColor.Red; }
+                    else              { Console.ForegroundColor = ConsoleColor.Green; }
+
+                    if (this.HP < 25) { Console.WriteLine("Y̸̢̨͉͖̣̖̼̜̟̱̞̫̌ͅò̷̢̺̯̠͓̦̫̣̋̀̄̉̀̔͊̕̕ͅų̸̨̨͎͔̽͝'̸̧̤͓̝̻͖̬̗͖̩̗̩͚̣͑̌̔̒͋͌̾̿̎v̴̧̢͚̆̆̈́͛͠ę̷͌͊͗͐͠ ̴̹͔̯͇͒̇s̶͖͓̲̱̼̙̲̪̼̔͐͜é̸͙̳̜͎̈́͛̒͜ͅẹ̷̺̺͓̹̱̟̘̹͚̺̉̃̓̈́͛͂̌̚ṋ̴̑̂́͜ ̸̧̤̣͕̘̫͚͆͗͒̉́̀ḇ̷̨̞̦̥̯̯͙̖͕͍̲̩͌͘͜͝ȩ̴̨̼̥̩̩̪͎̺͎̤͛́̓̈́̈́̎͊́̍̀̚͘͜͝t̸̹͙̖͎̘̓t̴̺͌̌͐̚ë̵̖̺̘́̊̉͗̍r̷͉͔̪̈́́̇̉̈́̉̌̊̄͐̒̒͘ ̴̡̠̞̪̩̮̻̗̋̀̊̈́͂̈́͒͛̋̍͌̚̕̕d̷̙̰͔̘͇̄͌͌͠ȃ̶̡̢̛̱͖̦̘̫̭͙̟̠̫̭͓̀̀̄̎̃͊͂͛̎̂̈́̕͝y̵̬̹͍͉̼͓̦̗̱̤̙̠̰̟̙̒́͂̎͗̓̔̾̑͊̓̈́ṡ̵̢̳͍̳͍͙͓̆̕͜͜ͅ"); }
+                    else              { Console.WriteLine("You've seen better days."); }
+
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.WriteLine("");
+                Console.WriteLine($"You're carrying a {EquippedSword.Name} in your main hand.");
+                Console.WriteLine($"You're carrying a {EquippedTorch.Name} in your off hand.");
 
 
-            Console.ForegroundColor = ConsoleColor.Gray;
 
-            //Get plauer inventory
 
-            GetInventory();
 
-        }
 
-        /// <summary>
-        /// Displays items in inventory.
-        /// </summary>
-        public void GetInventory()
+
+                Console.WriteLine($"< (q) ============= {pointer} ========== (e) >");
+
+                List<GameItems> items = this.InventoryLinq(pointer);
+
+                foreach (var item in items)
+                {
+                    Console.Write(items.IndexOf(item) + ". ");
+                    Console.WriteLine(item.Name);
+                }
+
+
+                ConsoleKeyInfo choice = Console.ReadKey();
+                Console.Clear();
+
+                switch (choice.KeyChar.ToString())
+ {
+                    case "e": { i++; break; }
+                    case "q": { i--; break; }
+                    case "i": { return; }
+                        
+                    default: { continue; }
+
+
+
+                }
+                /*
+                List<string> command = new();
+                command.Add("i: exit");
+                byte max = Math.Max(Convert.ToByte(this.Inventory.Count), Convert.ToByte(command.Count));
+
+                for (int i = 0; i < max; i++)
+                {
+                    string column1 = (i < this.Inventory.Count) ? this.Inventory[i].Name : "";
+                    string column2 = (i < command.Count) ? command[i] : "";
+
+                    Console.WriteLine("{0, -100}, {1} ", column1, column2);
+                }
+                Console.ReadKey();
+                */
+            }
+
+
+            }
+
+
+
+        public List<GameItems> InventoryLinq(string type)
         {
             if (Inventory.Count == 0)
             {
                 Console.WriteLine("Your bag is empty");
-                return;
+                return null;
 
             }
-            else
-            {
-                Console.WriteLine("There are items in your bag:");
 
-                foreach (GameItems item in Inventory)
-                {
-                    Console.Write(Inventory.IndexOf(item) + 1 + ". ");
-                    Console.WriteLine(item.Name);
-                }
-            }
+            if (type == "Inventory")
+            { return this.Inventory; }
+
+            List<GameItems> list = new();
+
+            var items = from item in this.Inventory
+                        where item.Type == type
+                        select item;
+
+            foreach (var item in items)
+            { list.Add(item); }    
+            
+
+
+            return list;
         }
+
+        
         /// <summary>
         /// Transfers item from room to player.
         /// </summary>
