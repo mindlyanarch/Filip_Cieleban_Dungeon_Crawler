@@ -143,20 +143,7 @@ namespace DungeonExplorer
 
 
                 }
-                /*
-                List<string> command = new();
-                command.Add("i: exit");
-                byte max = Math.Max(Convert.ToByte(this.Inventory.Count), Convert.ToByte(command.Count));
 
-                for (int i = 0; i < max; i++)
-                {
-                    string column1 = (i < this.Inventory.Count) ? this.Inventory[i].Name : "";
-                    string column2 = (i < command.Count) ? command[i] : "";
-
-                    Console.WriteLine("{0, -100}, {1} ", column1, column2);
-                }
-                Console.ReadKey();
-                */
             }
 
 

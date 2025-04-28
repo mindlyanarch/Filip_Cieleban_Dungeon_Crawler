@@ -12,6 +12,7 @@ namespace DungeonExplorer
         public Controller() 
         
         {
+
             ControllerList = new();
         }
 

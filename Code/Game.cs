@@ -1,4 +1,5 @@
 ﻿using DungeonExplorer;
+using DungeonExplorer.Code.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
@@ -21,7 +22,7 @@ namespace DungeonExplorer
         private GameMap gameMap;
         //Enemies
         private Rat rat;
-
+        public Statistics stats;
         public Testing testing;
         public Command command;
 
