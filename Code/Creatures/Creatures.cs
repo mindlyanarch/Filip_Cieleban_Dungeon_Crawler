@@ -42,14 +42,17 @@ namespace DungeonExplorer
                 
             
             }
-            public void TakeDamage(int damage)
+            public bool TakeDamage(int damage)
         {
             HP -= damage;
-            
+
             if (HP <= 0)
             {
-                this.currentRoom.Enemies.Remove(this);
+                return true;
             }
+
+            return false;
+            
         }
 
 
@@ -77,7 +80,7 @@ namespace DungeonExplorer
     }
 
         interface IEnemyAI    { public void Turn(); }
-        interface IDamageable { public void Attack(); public void TakeDamage(int Damage); }
+        interface IDamageable { public void Attack(); public bool TakeDamage(int Damage); }
       
 
 }

@@ -69,18 +69,26 @@ namespace DungeonExplorer
         ///</Summary>
 
 
-        public Creature Attack ()
+        public Enemy Attack ()
         {
+
+            if (currentRoom.Enemies.Count == 0)
+            {
+                Console.WriteLine("There are no foes nearby.");
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
+                return null; 
+            }
             Console.WriteLine("Which enemy shall perish?");
             
-            foreach (var enemy in currentRoom.Enemies)
+            foreach (Enemy enemy in currentRoom.Enemies)
             {
                 Console.WriteLine($"{currentRoom.Enemies.IndexOf(enemy) + 1}. {enemy.Name}");
             }
 
             ConsoleKeyInfo choice = Console.ReadKey(); //using consolekeyinfo allows distinction between lower and capital, it doesn't work with my system any other way
 
-            var target = currentRoom.Enemies[Convert.ToInt32(choice.KeyChar) - 1];
+            Enemy target = currentRoom.Enemies.ElementAt(Convert.ToInt32(choice.KeyChar.ToString()) - 1);
 
             return target;
 

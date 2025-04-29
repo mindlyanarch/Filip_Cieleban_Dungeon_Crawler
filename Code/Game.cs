@@ -89,8 +89,14 @@ namespace DungeonExplorer
 
                     case "f":
                         {
-                            Creature target = player.Attack();
-                            target.TakeDamage(player.EquippedSword.damage);
+                            Enemy target = player.Attack();
+
+                            if (target == null) { break; }
+                            bool dead = target.TakeDamage(player.EquippedSword.damage);
+
+                            if (dead)
+                            { creatureController.Kill(target, player.currentRoom); }
+
                             break;
                         }
 

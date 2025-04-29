@@ -17,7 +17,7 @@ namespace DungeonExplorer
         //Object libraries
         public Dictionary<int, Room> Connections { get; protected set; }
         public int PossibleConnections { get; protected set; }
-        public List<Creature> Enemies { get; protected set; }
+        public List<Enemy> Enemies { get; protected set; }
         public List<GameItems> Inventory { get; protected set; }
         //public List<Trap> Traps { get; protected set; }
         //public List<Shrines> shrines { get; protected set; }

@@ -27,7 +27,11 @@ namespace DungeonExplorer
 
         }
 
-
+        public void Kill(Enemy target, Room room)
+        {
+            room.Enemies.Remove(target);
+            Master_List_Creatures.Remove(target);
+        }
 
         public List<Enemy> GetEnemies(Player player)
         {
@@ -83,7 +87,9 @@ namespace DungeonExplorer
             {
                 int select = random.Next(1, floor.Count);
                 {
-                   floor.ElementAt(select).Value.Enemies.Add(enemy);
+                    var room = floor.Values.ElementAt(select);
+                    room.Enemies.Add(enemy);
+                    enemy.currentRoom = room;
                 }
             }
             return Creatures;
