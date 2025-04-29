@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DungeonExplorer.Code.Map.Rooms;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 namespace DungeonExplorer
 {
 
-        public abstract class Creature : IDamageable
+    public abstract class Creature : IDamageable
         {
             public int MAXHP { get; protected set; }
             public int HP { get; protected set; }
@@ -18,9 +19,8 @@ namespace DungeonExplorer
             public string Name { get; protected set; }
             public string Description { get; protected set; }
             public bool Hostile { get; protected set; }
-            
-             public int difficulty { get; protected set; }
-            public Room currentRoom { get;  set; }
+            public int difficulty { get; protected set; }
+            public Room currentRoom { get; protected set; }
 
             public Creature()
             {
@@ -29,58 +29,40 @@ namespace DungeonExplorer
                 difficulty = 1;
             }
 
-        
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public Room GetRoom() { return this.currentRoom; }
-
-            public void Attack()
-            {
-                
-            
-            }
+            public void Attack() { }
             public bool TakeDamage(int damage)
-        {
+
+            {
+
             HP -= damage;
 
-            if (HP <= 0)
-            {
-                return true;
+            if (HP <= 0) { return true; }
+
+            else { return false; }
+            
             }
 
-            return false;
-            
-        }
-
-
-
-        }
+    }
         
-       
+    public abstract class Enemy : Creature, IEnemyAI
+    {
 
-        public abstract class Enemy : Creature, IEnemyAI
-        {
-        bool Aggressive = false;
-
-        public Enemy()
-        {
-
-        }
-        public Enemy(Room location) 
-        {
-            currentRoom = location;
-        }
-
-        public virtual void Turn() { }
-        public virtual void Turn(Player target) { }
+    public Enemy()
+    {
 
     }
+    public Enemy(Room location) 
+    {
+        currentRoom = location;
+    }
 
-        interface IEnemyAI    { public void Turn(); }
-        interface IDamageable { public void Attack(); public bool TakeDamage(int Damage); }
+    public virtual void Turn() { }
+    public virtual void Turn(Player target) { }
+
+}
+
+    interface IEnemyAI    { public void Turn(); }
+    interface IDamageable { public void Attack(); public bool TakeDamage(int Damage); }
       
 
 }

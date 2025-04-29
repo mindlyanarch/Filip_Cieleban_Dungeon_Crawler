@@ -1,4 +1,4 @@
-﻿using DungeonExplorer;
+﻿using DungeonExplorer.Code.Creatures.Enemies;
 using DungeonExplorer.Code.Data;
 using System;
 using System.Collections.Generic;
@@ -62,7 +62,7 @@ namespace DungeonExplorer
         public void Start()
         {
 
-            player.currentRoom = mapController.CurrentFloor[0];
+            player.SetRoom(mapController.CurrentFloor[0]);
 
             // Change the playing logic into true and populate the while loop
             bool playing = true;

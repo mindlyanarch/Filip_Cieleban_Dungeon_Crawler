@@ -1,4 +1,7 @@
-﻿using DungeonExplorer.Code.Items;
+﻿using DungeonExplorer.Code.Items.Potions;
+using DungeonExplorer.Code.Items.Swords;
+using DungeonExplorer.Code.Items.Torches;
+using DungeonExplorer.Code.Map.Rooms;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,44 +17,70 @@ namespace DungeonExplorer
     public class Player : Creature
     {
 
+        //Player Slots
+
         private List<GameItems> Inventory = new List<GameItems>();
+        public Torch EquippedTorch { get; protected set; }
+        public Sword EquippedSword { get; protected set; }
 
-        public Torch EquippedTorch { get; set; }
-        public Sword EquippedSword { get; set; }
 
+        //Tools
         private Dictionary<string, int> Cardinality { get; set; }
 
+
+        //Items
         private Potion potion;
 
         public Player()
         {
 
-            MAXHP = 100;
-            HP = MAXHP;
-            DefaultTorch torch = new();
-            Sword sword = new("yes", "yes", 5);
+            //Player stats
+
+                MAXHP = 100;
+                HP = MAXHP;
+                Description = "You've seen better days.";
+
+
+            //Starting items
+
+                DefaultTorch torch = new();
+                Sword sword = new("Rusty Sword", "It too, has seen better days.", 5);
 
                 potion = new();
                 potion = new();
                 potion = new();
 
-
-            Description = "You've seen better days.";
             EquippedTorch = torch;
             EquippedSword = sword;
             Inventory.Add(potion);
 
         }
+
         public Player(Room location) 
         {
             currentRoom = location;
 
+            //Player stats
+
             MAXHP = 100;
             HP = MAXHP;
+            Description = "You've seen better days.";
+
+
+            //Starting items
+
             DefaultTorch torch = new();
+            Sword sword = new("Rusty Sword", "It too, has seen better days.", 5);
+
+            potion = new();
+            potion = new();
+            potion = new();
 
             EquippedTorch = torch;
+            EquippedSword = sword;
+            Inventory.Add(potion);
 
+            //Tools
 
             Cardinality = new();
             this.Cardinality.Add("North", 0);
@@ -64,11 +93,14 @@ namespace DungeonExplorer
             Debug.Assert(currentRoom != null);
         }
 
-        ///<Summary>
-        ///Displays Room name, Description and items.
-        ///</Summary>
+        public void SetRoom(Room room) { this.currentRoom = room; }
 
 
+        /// <summary>
+        /// Method for player to select and attack an enemy in the current room.
+        /// </summary>
+        /// <returns></returns>
+        
         public Enemy Attack ()
         {
 
@@ -93,6 +125,11 @@ namespace DungeonExplorer
             return target;
 
         }
+
+        /// <summary>
+        /// Displays room contents.
+        /// </summary>
+        
         public void Look()
         {
             //display room fluff
@@ -105,6 +142,10 @@ namespace DungeonExplorer
             currentRoom.GetContents();
 
         }
+
+        /// <summary>
+        /// Displays player status and inventory
+        /// </summary>
 
         public void CheckStatus()
         {
@@ -175,6 +216,11 @@ namespace DungeonExplorer
             }
 
 
+        /// <summary>
+        /// Filters inventory by item types.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
 
         public List<GameItems> InventoryLinq(string type)
         {
@@ -206,6 +252,7 @@ namespace DungeonExplorer
         /// <summary>
         /// Transfers item from room to player.
         /// </summary>
+        
         public void PickUpItem()
         {
             //example of guard clause
@@ -247,13 +294,12 @@ namespace DungeonExplorer
             }
         }
 
-
-    
         /// <summary>
-        /// Moves to previous room in Map
+        /// Moves the player in the specified direction
         /// </summary>
-        /// <param name="Map"></param>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <param name="direction"></param>
+        /// <exception cref=">KeyNotFoundException"> </exception>
+        
         public void Move(int direction)
         {
             try
@@ -271,6 +317,12 @@ namespace DungeonExplorer
             }
 
         }
+      
+        /// <summary>
+        /// Displays map 
+        /// </summary>
+        /// <param name="Map"></param>
+        
         public void CheckMap(Dictionary<int, Room> Map)
         {
 

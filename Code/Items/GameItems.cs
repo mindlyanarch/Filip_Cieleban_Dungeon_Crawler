@@ -10,7 +10,6 @@ namespace DungeonExplorer
     {
         public string Name { get;  protected set; }
         public string Description { get; protected set; }
-
         public string Type { get; protected set; }
 
     public GameItems()
@@ -19,8 +18,7 @@ namespace DungeonExplorer
         }
     }
 
-    interface ISetsLight
-    {  List<string> SetLight(Player player); }
+    interface ISetsLight {List<string> SetLight(Player player); }
 
     interface IUsable { void Use(); }
 

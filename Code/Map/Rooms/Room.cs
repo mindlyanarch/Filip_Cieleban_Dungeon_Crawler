@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace DungeonExplorer
+namespace DungeonExplorer.Code.Map.Rooms
 {
 
     public abstract class Room
@@ -50,7 +50,7 @@ namespace DungeonExplorer
         /// </summary>
         public void GetContents()
         {
-            if (this.Inventory.Count == 0)
+            if (Inventory.Count == 0)
             {
                 Console.WriteLine("There's nothing here");
 
@@ -59,9 +59,9 @@ namespace DungeonExplorer
             {
                 Console.WriteLine("This room contains:");
 
-                foreach (GameItems item in this.Inventory)
+                foreach (GameItems item in Inventory)
                 {
-                    Console.Write(this.Inventory.IndexOf(item) + 1 + ". ");
+                    Console.Write(Inventory.IndexOf(item) + 1 + ". ");
                     Console.WriteLine(item.Name);
                 }
             }
@@ -77,7 +77,7 @@ namespace DungeonExplorer
     }
 
 
-  
+
     //"Corridor" rooms.
 
     internal class Room_Empty : Room

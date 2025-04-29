@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DungeonExplorer
+namespace DungeonExplorer.Code.Items.Swords
 {
     public class Sword : GameItems, IUsable
     {
         private int Damage { get; set; }
-        public int damage { get { return Damage; } }
 
         public bool Equippable = true;
 
