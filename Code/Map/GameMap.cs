@@ -16,8 +16,8 @@ namespace DungeonExplorer
 {
     internal class GameMap
     {
-
-
+      
+        //Lists to hold all floors and rooms
 
         public Dictionary<string, Room> Master { get; private set; }
         public Dictionary<int, Dictionary<int, Room>> MasterFloorList { get; private set; }
@@ -27,7 +27,8 @@ namespace DungeonExplorer
         public Dictionary<int, string> BasicRoomList { get; private set; }
         public Dictionary<int, string> AdvancedRoomList { get; private set; }
 
-        private Random random = new();
+
+        private Random random;
 
         int Floors = 0;
         public GameMap()
@@ -49,7 +50,12 @@ namespace DungeonExplorer
 
         }
 
-
+        /// <summary>
+        /// Generate a new floor with size X and difficulty Y
+        /// </summary>
+        /// <param name="size"></param>
+        /// <param name="difficulty"></param>
+        /// <returns></returns>
 
         public Dictionary<int, Room> CreateFloor(int size, int difficulty)
         {
@@ -61,12 +67,10 @@ namespace DungeonExplorer
 
             Dictionary<int, Room> newFloor = new();
 
-            int Corridor = Convert.ToInt32((size - 1) * 0.6);
+
+            //Declare how 'long' corridor should be, then determine amount of special rooms
+            int Corridor = (int)(size - 1 * 0.6);
             int SpecialRooms = size - Corridor;
-
-
-
-            
 
 
             int ID = 0;

@@ -13,10 +13,7 @@ namespace DungeonExplorer
     internal class MapController : Controller
     {
 
-
-
-
-        //This map controller handles all communication related to position.
+        //This map controller handles all communication between game and GameMap
 
         public GameMap Map {get; private set;}
         public int CurrentLevel {get; private set;}
@@ -29,10 +26,7 @@ namespace DungeonExplorer
         {
             Map = new();
 
-            CurrentLevel = 0;
-            
-
-            
+            CurrentLevel = 0; 
 
         }
 

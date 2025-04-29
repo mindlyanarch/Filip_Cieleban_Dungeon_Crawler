@@ -82,6 +82,7 @@ namespace DungeonExplorer
         public List<Enemy> PopulateFloor(Dictionary<int, Room> floor)
         { 
             List<Enemy> Creatures = new List<Enemy>();
+
             //Get difficulty of floor.
 
             int roomDiff = 0;
