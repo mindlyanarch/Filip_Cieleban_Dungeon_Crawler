@@ -123,7 +123,7 @@ namespace DungeonExplorer
 
 
                 //Game processing:
-                creatureController.GetEnemies(player);
+                creatureController.GetEnemies(player.currentRoom);
                 creatureController.EnemyTurn(player);
 
                 Console.WriteLine("press any key to continue.");
