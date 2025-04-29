@@ -1,4 +1,6 @@
 ﻿using DungeonExplorer.Code.Map.Rooms;
+using DungeonExplorer.Code.Map.Rooms.Generic;
+using DungeonExplorer.Code.Map.Rooms.Unique;
 using System;
 using System.Collections;
 using System.Collections.Generic;
