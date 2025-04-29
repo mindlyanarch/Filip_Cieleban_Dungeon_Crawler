@@ -93,7 +93,7 @@ namespace DungeonExplorer
             Debug.Assert(currentRoom != null);
         }
 
-        public void SetRoom(Room room) { this.currentRoom = room; }
+       
 
 
         /// <summary>

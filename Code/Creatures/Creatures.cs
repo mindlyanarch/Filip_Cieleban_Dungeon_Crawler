@@ -28,7 +28,12 @@ namespace DungeonExplorer
                 Description = "This shouldn't exist.";
                 difficulty = 1;
             }
-
+            
+            /// <summary>
+            /// Puts the creature into the specified room
+            /// </summary>
+            /// <param name="room"></param>
+            public void SetRoom(Room room) { this.currentRoom = room; }
             public void Attack() { }
             public bool TakeDamage(int damage)
 

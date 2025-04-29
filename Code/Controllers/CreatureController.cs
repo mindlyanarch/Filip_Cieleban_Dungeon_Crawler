@@ -28,13 +28,23 @@ namespace DungeonExplorer
 
         }
 
+        /// <summary>
+        /// Remove the specified enemy from target room and from the master list
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="room"></param>
         public void Kill(Enemy target, Room room)
         {
             room.Enemies.Remove(target);
             Master_List_Creatures.Remove(target);
         }
 
-        public List<Enemy> GetEnemies(Player player)
+        /// <summary>
+        /// Gets the list of active enemies from the player's current room
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
+        public List<Enemy> GetEnemies(Room room)
         {
 
 
@@ -42,13 +52,19 @@ namespace DungeonExplorer
             {
                 this.Master_List_Creatures = new();
             }
-            foreach (Enemy enemy in player.currentRoom.Enemies)
+            foreach (Enemy enemy in room.Enemies)
             {
                 Master_List_Creatures.Add(enemy);
 
             }
             return Master_List_Creatures;
         }
+
+        /// <summary>
+        /// Each enemy in the room takes an action
+        /// </summary>
+        /// <param name="player"></param>
+
         public void EnemyTurn(Player player)
         {
             foreach (var enemy in this.Master_List_Creatures)
@@ -58,7 +74,11 @@ namespace DungeonExplorer
             }
 
         }
-
+        /// <summary>
+        /// spawns enemies in the current floor up to the floor's difficulty
+        /// </summary>
+        /// <param name="floor"></param>
+        /// <returns></returns>
         public List<Enemy> PopulateFloor(Dictionary<int, Room> floor)
         { 
             List<Enemy> Creatures = new List<Enemy>();
@@ -90,7 +110,7 @@ namespace DungeonExplorer
                 {
                     var room = floor.Values.ElementAt(select);
                     room.Enemies.Add(enemy);
-                    enemy.currentRoom = room;
+                    enemy.SetRoom(null);
                 }
             }
             return Creatures;

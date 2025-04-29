@@ -56,9 +56,8 @@ namespace DungeonExplorer
                     {
                         Sword rustySword = new Sword("Rusty Sword", "This has been here a long time...", 5);
 
-                        Room destination = playerTarget.GetRoom();
 
-                        destination.Inventory.Add(rustySword);
+
 
 
                         break;

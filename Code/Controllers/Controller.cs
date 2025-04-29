@@ -16,6 +16,11 @@ namespace DungeonExplorer
             ControllerList = new();
         }
 
+        /// <summary>
+        /// Feeds the controller a list of all other controllers.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
         public List<Controller> Get_Controller_List(List<Controller> list)
 
         {
