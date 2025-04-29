@@ -8,7 +8,7 @@ namespace DungeonExplorer.Code.Items.Swords
 {
     public class Sword : GameItems, IUsable
     {
-        private int Damage { get; set; }
+        public int Damage { get; private set; }
 
         public bool Equippable = true;
 

@@ -92,7 +92,7 @@ namespace DungeonExplorer
                             Enemy target = player.Attack();
 
                             if (target == null) { break; }
-                            bool dead = target.TakeDamage(player.EquippedSword.damage);
+                            bool dead = target.TakeDamage(player.EquippedSword.Damage);
 
                             if (dead)
                             { creatureController.Kill(target, player.currentRoom); }
