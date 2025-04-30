@@ -41,14 +41,24 @@ namespace DungeonExplorer
                 {
                     this.info.Add($"There is an exit leading {cardinal.GetCardinalString(connection)}.");
                 }
+                foreach (var enemy in game.player.currentRoom.Enemies)
+                {
+                    info.Add($"There is a {enemy.Name} here.");
+                }
                 return info;
+
             }
             else 
             {
                 this.info = new();
                 info.Add("It's cold in here...");
+                foreach (var enemy in game.player.currentRoom.Enemies)
+                {
+                    info.Add($"There is a {enemy.Name} here.");
+                }
                 return info;
             }
+
         }
         
         public void Display_Main(Command command)

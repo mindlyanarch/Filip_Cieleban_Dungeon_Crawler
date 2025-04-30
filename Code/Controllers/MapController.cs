@@ -15,7 +15,7 @@ namespace DungeonExplorer
 
         //This map controller handles all communication between game and GameMap
 
-        public GameMap Map {get; private set;}
+        private GameMap Map {get; set;}
         public int CurrentLevel {get; private set;}
         public int Currentdifficulty {get; private set;}
         public Dictionary<int, Room> CurrentFloor { get; private set;} 
