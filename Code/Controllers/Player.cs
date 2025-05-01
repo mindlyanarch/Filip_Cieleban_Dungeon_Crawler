@@ -157,7 +157,7 @@ namespace DungeonExplorer
             sort.Add("Torch");
 
             int i = 0;
-            
+
 
             while (true)
             {
@@ -168,11 +168,11 @@ namespace DungeonExplorer
 
                 Console.Write("It's you.");
 
-                    if (this.HP < 50) { Console.ForegroundColor = ConsoleColor.Red; }
-                    else              { Console.ForegroundColor = ConsoleColor.Green; }
+                if (this.HP < 50) { Console.ForegroundColor = ConsoleColor.Red; }
+                else { Console.ForegroundColor = ConsoleColor.Green; }
 
-                    if (this.HP < 25) { Console.WriteLine("Y̸̢̨͉͖̣̖̼̜̟̱̞̫̌ͅò̷̢̺̯̠͓̦̫̣̋̀̄̉̀̔͊̕̕ͅų̸̨̨͎͔̽͝'̸̧̤͓̝̻͖̬̗͖̩̗̩͚̣͑̌̔̒͋͌̾̿̎v̴̧̢͚̆̆̈́͛͠ę̷͌͊͗͐͠ ̴̹͔̯͇͒̇s̶͖͓̲̱̼̙̲̪̼̔͐͜é̸͙̳̜͎̈́͛̒͜ͅẹ̷̺̺͓̹̱̟̘̹͚̺̉̃̓̈́͛͂̌̚ṋ̴̑̂́͜ ̸̧̤̣͕̘̫͚͆͗͒̉́̀ḇ̷̨̞̦̥̯̯͙̖͕͍̲̩͌͘͜͝ȩ̴̨̼̥̩̩̪͎̺͎̤͛́̓̈́̈́̎͊́̍̀̚͘͜͝t̸̹͙̖͎̘̓t̴̺͌̌͐̚ë̵̖̺̘́̊̉͗̍r̷͉͔̪̈́́̇̉̈́̉̌̊̄͐̒̒͘ ̴̡̠̞̪̩̮̻̗̋̀̊̈́͂̈́͒͛̋̍͌̚̕̕d̷̙̰͔̘͇̄͌͌͠ȃ̶̡̢̛̱͖̦̘̫̭͙̟̠̫̭͓̀̀̄̎̃͊͂͛̎̂̈́̕͝y̵̬̹͍͉̼͓̦̗̱̤̙̠̰̟̙̒́͂̎͗̓̔̾̑͊̓̈́ṡ̵̢̳͍̳͍͙͓̆̕͜͜ͅ"); }
-                    else              { Console.WriteLine("You've seen better days."); }
+                if (this.HP < 25) { Console.WriteLine("Y̸̢̨͉͖̣̖̼̜̟̱̞̫̌ͅò̷̢̺̯̠͓̦̫̣̋̀̄̉̀̔͊̕̕ͅų̸̨̨͎͔̽͝'̸̧̤͓̝̻͖̬̗͖̩̗̩͚̣͑̌̔̒͋͌̾̿̎v̴̧̢͚̆̆̈́͛͠ę̷͌͊͗͐͠ ̴̹͔̯͇͒̇s̶͖͓̲̱̼̙̲̪̼̔͐͜é̸͙̳̜͎̈́͛̒͜ͅẹ̷̺̺͓̹̱̟̘̹͚̺̉̃̓̈́͛͂̌̚ṋ̴̑̂́͜ ̸̧̤̣͕̘̫͚͆͗͒̉́̀ḇ̷̨̞̦̥̯̯͙̖͕͍̲̩͌͘͜͝ȩ̴̨̼̥̩̩̪͎̺͎̤͛́̓̈́̈́̎͊́̍̀̚͘͜͝t̸̹͙̖͎̘̓t̴̺͌̌͐̚ë̵̖̺̘́̊̉͗̍r̷͉͔̪̈́́̇̉̈́̉̌̊̄͐̒̒͘ ̴̡̠̞̪̩̮̻̗̋̀̊̈́͂̈́͒͛̋̍͌̚̕̕d̷̙̰͔̘͇̄͌͌͠ȃ̶̡̢̛̱͖̦̘̫̭͙̟̠̫̭͓̀̀̄̎̃͊͂͛̎̂̈́̕͝y̵̬̹͍͉̼͓̦̗̱̤̙̠̰̟̙̒́͂̎͗̓̔̾̑͊̓̈́ṡ̵̢̳͍̳͍͙͓̆̕͜͜ͅ"); }
+                else { Console.WriteLine("You've seen better days."); }
 
                 Console.ForegroundColor = ConsoleColor.Gray;
                 Console.WriteLine("");
@@ -195,53 +195,56 @@ namespace DungeonExplorer
                 Console.Clear();
 
                 switch (choice.KeyChar.ToString())
- {
+                {
                     case "e": { i++; break; }
                     case "q": { i--; break; }
                     case "i": { return; }
-                        
-                    default: 
+
+                    default:
                         {
                             try
                             {
                                 var item = this.Inventory[Int32.Parse(choice.KeyChar.ToString()) - 1];
-                                
+
                                 Console.WriteLine($"What would you like to do with this {item.Name}? \n");
                                 Console.WriteLine("1. Use");
                                 Console.WriteLine("2. Discard");
                                 Console.WriteLine("3. Leave it be");
 
                                 while (true)
-                                { 
-                                 choice = Console.ReadKey();
-                                Console.Clear();
+                                {
+                                    choice = Console.ReadKey();
+                                    Console.Clear();
 
-                                switch (Int32.Parse(choice.KeyChar.ToString()))
+                                    switch (Int32.Parse(choice.KeyChar.ToString()))
                                     {
-                                    case 1: 
-                                        { 
-                                          
-                                          item.Use(this);
-                                                
-                                          break; }
+                                        case 1:
+                                            {
+
+                                                item.Use(this);
+
+                                                break;
+                                            }
 
 
-                                    case 2:
+                                        case 2:
 
-                                        { this.Inventory.Remove(item); 
-                                          currentRoom.Inventory.Add(item);
-                                          break;
-                                        }
+                                            {
+                                                this.Inventory.Remove(item);
+                                                currentRoom.Inventory.Add(item);
+                                                break;
+                                            }
 
-                                    case 3:
-                                        { break; }
-                                    default:
-                                        { continue; }
+                                        case 3:
+                                            { break; }
+                                        default:
+                                            { continue; }
 
+                                    }
+
+
+                                    break;
                                 }
-
-
-                                break;
                             }
 
                             catch (ArgumentOutOfRangeException)
@@ -249,14 +252,14 @@ namespace DungeonExplorer
 
                                 continue;
                             }
+                            break;
 
-                }
+                        }
 
+                    }
             }
-
-
             }
-
+        
 
         /// <summary>
         /// Filters inventory by item types.
@@ -264,7 +267,7 @@ namespace DungeonExplorer
         /// <param name="type"></param>
         /// <returns></returns>
 
-        public List<GameItems> InventoryLinq(string type)
+        private List<GameItems> InventoryLinq(string type)
         {
             if (Inventory.Count == 0)
             {
@@ -338,8 +341,8 @@ namespace DungeonExplorer
 
                     catch (ArgumentOutOfRangeException)
                     {
-                        Console.WriteLine("Your choice is not listed, try again.");
-                        continue;
+                        Console.WriteLine("Your choice is not listed.");
+                        break;
                     }
                 }
             }

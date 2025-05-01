@@ -73,6 +73,7 @@ namespace DungeonExplorer
             Console.WriteLine("Closing the game...");
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();
+            Environment.Exit(0);
         }
 
 
