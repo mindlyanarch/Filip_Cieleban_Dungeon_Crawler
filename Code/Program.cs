@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -31,24 +32,27 @@ namespace DungeonExplorer
 
             Game game = new(); //core gameplay object
             DataController controller = new(); // handles saves
-            
-            //Main Menu
-            Console.WriteLine("Welcome to Dungeon Crawler!");
-            Console.WriteLine("Pick an option:\n");
 
-            Console.WriteLine("a. Start new game");
-
-            Console.WriteLine("q. Exit");
-
-            ConsoleKeyInfo choice = Console.ReadKey();
-            Console.Clear();
-
-            switch (choice.KeyChar.ToString())
+            while (true)
             {
-                case "a": { Program.Start(game); break;}
-                case "q": { Program.Quit(); break; }
-            }
+                //Main Menu
+                Console.WriteLine("Welcome to Dungeon Crawler!");
+                Console.WriteLine("Pick an option:\n");
 
+                Console.WriteLine("a. Start new game");
+
+                Console.WriteLine("q. Exit");
+
+                ConsoleKeyInfo choice = Console.ReadKey();
+                Console.Clear();
+
+                switch (choice.KeyChar.ToString())
+                {
+                    case "a": { Program.Start(game); break; }
+                    case "q": { Program.Quit(); break; }
+                    default: { continue; }
+                }
+            }
         }
 
         static void Start(Game game)

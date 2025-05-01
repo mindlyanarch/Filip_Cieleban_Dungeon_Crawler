@@ -100,10 +100,10 @@ namespace DungeonExplorer
                             break;
                         }
 
-                    case "w": { player.Move(0); break; }
-                    case "a": { player.Move(3); break; }
-                    case "s": { player.Move(2); break; }
-                    case "d": { player.Move(1); break; }
+                    case "w": { player.Move(0); continue; }
+                    case "a": { player.Move(3); continue; }
+                    case "s": { player.Move(2); continue; }
+                    case "d": { player.Move(1); continue; }
 
                     case "q": { playing = false; break; }
                     case "n": { testing.DebugMenu(this, player); break; }
