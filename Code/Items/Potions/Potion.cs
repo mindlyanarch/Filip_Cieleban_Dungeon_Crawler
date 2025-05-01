@@ -15,9 +15,13 @@ namespace DungeonExplorer.Code.Items.Potions
             Type = "Potion";
         }
 
-        public void Use() { }
+        public override void Use() { }
         public void Use(Player player)
 
-        { player.TakeDamage(-25); }
+        {
+            Console.WriteLine("You chug your trusty potion.");
+            player.TakeDamage(-25);
+            
+        }
     }
 }

@@ -15,8 +15,8 @@ namespace DungeonExplorer
 
     {
 
-        public Testing(Player player) 
-        { Player playerTarget = player; }
+        public Testing(Player player) { Player playerTarget = player; }
+
         /// <summary>
         /// Calls debug menu options
         /// </summary>

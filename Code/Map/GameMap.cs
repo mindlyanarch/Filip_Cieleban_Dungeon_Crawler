@@ -130,7 +130,8 @@ namespace DungeonExplorer
         /// </summary>
         /// <param name="newFloor"></param>
         public void Generate_Corridor(Dictionary<int, Room> newFloor, ref int ID, ref int Corridor)
-        { 
+        {
+            random = new();
 
             while (ID <= Corridor)
             {

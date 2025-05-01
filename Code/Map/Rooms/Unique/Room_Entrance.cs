@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DungeonExplorer.Code.Items.Potions;
 
 namespace DungeonExplorer.Code.Map.Rooms.Unique
 {
@@ -18,6 +19,8 @@ namespace DungeonExplorer.Code.Map.Rooms.Unique
             PossibleConnections = 1;
             PossibleTraps = 0;
             roomLevel = 0;
+            Potion potion = new();
+            Inventory.Add(potion);
         }
     }
 }

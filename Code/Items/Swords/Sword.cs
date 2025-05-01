@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer.Code.Items.Swords
 {
-    public class Sword : GameItems, IUsable
+    public class Sword : GameItems, IUsable, IEquippable
     {
         public int Damage { get; private set; }
 
@@ -22,7 +22,10 @@ namespace DungeonExplorer.Code.Items.Swords
 
         }
 
-        public void Use()
+        public override void Use()
+        { }
+
+        public void Use(Player player)
         { }
     }
 }

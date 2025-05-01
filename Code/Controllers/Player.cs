@@ -8,6 +8,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
@@ -179,11 +180,6 @@ namespace DungeonExplorer
                 Console.WriteLine($"You're carrying a {EquippedTorch.Name} in your off hand.");
 
 
-
-
-
-
-
                 Console.WriteLine($"< (q) ============= {pointer} ========== (e) >");
 
                 List<GameItems> items = this.InventoryLinq(pointer);
@@ -204,9 +200,55 @@ namespace DungeonExplorer
                     case "q": { i--; break; }
                     case "i": { return; }
                         
-                    default: { continue; }
+                    default: 
+                        {
+                            try
+                            {
+                                var item = this.Inventory[Int32.Parse(choice.KeyChar.ToString()) - 1];
+                                
+                                Console.WriteLine($"What would you like to do with this {item.Name}? \n");
+                                Console.WriteLine("1. Use");
+                                Console.WriteLine("2. Discard");
+                                Console.WriteLine("3. Leave it be");
+
+                                while (true)
+                                { 
+                                 choice = Console.ReadKey();
+                                Console.Clear();
+
+                                switch (Int32.Parse(choice.KeyChar.ToString()))
+                                    {
+                                    case 1: 
+                                        { 
+                                          
+                                          item.Use(this);
+                                                
+                                          break; }
 
 
+                                    case 2:
+
+                                        { this.Inventory.Remove(item); 
+                                          currentRoom.Inventory.Add(item);
+                                          break;
+                                        }
+
+                                    case 3:
+                                        { break; }
+                                    default:
+                                        { continue; }
+
+                                }
+
+
+                                break;
+                            }
+
+                            catch (ArgumentOutOfRangeException)
+                            {
+
+                                continue;
+                            }
 
                 }
 
@@ -266,6 +308,9 @@ namespace DungeonExplorer
             }
             else
             {
+
+
+
                 Console.WriteLine("There are items here:");
 
                 foreach (GameItems item in currentRoom.Inventory)
@@ -275,22 +320,28 @@ namespace DungeonExplorer
                 }
 
                 Console.WriteLine("Which item do you wish to procure?");
-                string input = Console.ReadLine().ToLower();
 
-                if (!currentRoom.Inventory.Any(GameItems => GameItems.Name.ToLower().Contains(input)))
+
+
+                while (true)
                 {
-                    Console.WriteLine("Item not found, perhaps you mistyped?");
 
+                    ConsoleKeyInfo choice = Console.ReadKey(); //using consolekeyinfo allows distinction between lower and capital, it doesn't work with my system any other way
+                    Console.Clear();
+
+                    try 
+                    { 
+                        var item = currentRoom.Inventory[Int32.Parse(choice.KeyChar.ToString()) - 1];
+                        this.Inventory.Add(item);
+                        break;
+                    }
+
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        Console.WriteLine("Your choice is not listed, try again.");
+                        continue;
+                    }
                 }
-                else
-                {
-                    var target = currentRoom.Inventory.Find(GameItems => GameItems.Name.ToLower().Contains(input));
-                    this.Inventory.Add(target);
-                    currentRoom.Inventory.Remove(target);
-
-                    Console.WriteLine("Picked up the {0}", target.Name);
-                }
-
             }
         }
 
